@@ -34,5 +34,8 @@ struct Constants {
             static let studentLocation = "/StudentLocation"
         }
         
+        struct URLParameters {
+            static let uniqueKey = "uniqueKey"
+        }
     }
 }

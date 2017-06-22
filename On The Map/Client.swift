@@ -10,14 +10,14 @@ import Foundation
 
 class Client {
     
-    func get(url urlString: String, with headers: [String: String] = [:], and body: String = "", parameters: [String:Any?] = [:], completion: @escaping SessionResponse) {
+    func get(url urlString: String, with headers: [String: String] = [:], and body: String = "", parameters: [String:AnyObject] = [:], completion: @escaping SessionResponse) {
         performRequestOn(url: urlString, using: "GET", with: headers, and: body, parameters: parameters, completion: completion)
     }
     
-    func post(url urlString: String, with headers: [String: String] = [:], and body: String = "", parameters: [String:Any?] = [:], completion: @escaping SessionResponse) {
+    func post(url urlString: String, with headers: [String: String] = [:], and body: String = "", parameters: [String:AnyObject] = [:], completion: @escaping SessionResponse) {
         performRequestOn(url: urlString, using: "POST", with: headers, and: body,parameters: parameters, completion: completion)
     }
-    func put(url urlString: String, with headers: [String: String] = [:], and body: String = "", parameters: [String:Any?] = [:], completion: @escaping SessionResponse) {
+    func put(url urlString: String, with headers: [String: String] = [:], and body: String = "", parameters: [String:AnyObject] = [:], completion: @escaping SessionResponse) {
         performRequestOn(url: urlString, using: "PUT", with: headers, and: body, parameters: parameters, completion: completion)
     }
     
@@ -45,10 +45,13 @@ class Client {
         }
     }
     
-    private func performRequestOn(url urlString: String, using method: String, with headers: [String: String], and body: String, parameters: [String:Any?], completion: @escaping SessionResponse) {
+    private func performRequestOn(url urlString: String, using method: String, with headers: [String: String], and body: String, parameters: [String:AnyObject], completion: @escaping SessionResponse) {
         
         // Build the URL
-        let request = NSMutableURLRequest(url: URL(string: urlString)!)
+        let urlParametersString = escapedParameters(parameters)
+        let finalURLString = urlString + urlParametersString
+        
+        let request = NSMutableURLRequest(url: URL(string: finalURLString)!)
         
         // Set the method of the Request
         request.httpMethod = method

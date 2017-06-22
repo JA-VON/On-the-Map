@@ -13,7 +13,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let parseClient = ParseClient.shared
-        parseClient.getStudentLocations()
+//        parseClient.getStudentLocations()
+        parseClient.getStudentLocation(uniqueKey: "171219548")
     }
 }
 
