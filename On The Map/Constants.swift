@@ -16,6 +16,7 @@ struct Constants {
             static let parseApplicationID = "X-Parse-Application-Id"
             static let parseApiKey = "X-Parse-REST-API-Key"
             static let contentType = "Content-Type"
+            static let accept = "Accept"
         }
         
         struct Values {
@@ -31,10 +32,13 @@ struct Constants {
         
         struct Paths {
             static let session = "/session"
+            static let users = "/users"
         }
         
-        struct URL Parameters {
+        struct URLParameters {
             static let udacity = "udacity"
+            static let username = "username"
+            static let password = "password"
         }
     }
     
@@ -47,6 +51,16 @@ struct Constants {
         
         struct URLParameters {
             static let uniqueKey = "uniqueKey"
+        }
+    }
+    
+    struct Facebook {
+        static let appID = "365362206864879"
+        static let URLSchemeSuffix = "onthemap"
+        
+        struct URLParameters {
+            static let facebookMobile = "facebook_mobile"
+            static let accessToken = "access_token"
         }
     }
 }

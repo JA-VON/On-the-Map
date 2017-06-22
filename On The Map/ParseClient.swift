@@ -12,9 +12,6 @@ class ParseClient: Client {
     
     static let shared = ParseClient()
     
-    var requestToken: String?
-    var sessionID: String?
-    
     let studentLocationURL = Constants.Parse.url + Constants.Parse.Paths.studentLocation
     
     func getDefaultHeaders() -> [String: String] { // Default Headers containing the header information for the application ID and API Key
@@ -37,6 +34,7 @@ class ParseClient: Client {
     }
     
     func getStudentLocation(with uniqueKey: String) {
+        // Build the Body Parameters
         let uniqueKeyDict = [
             Constants.Parse.URLParameters.uniqueKey:uniqueKey
         ]
