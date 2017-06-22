@@ -14,7 +14,10 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         let parseClient = ParseClient.shared
 //        parseClient.getStudentLocations()
-        parseClient.getStudentLocation(uniqueKey: "171219548")
+//        parseClient.getStudentLocation(with: "171219548")
+//        parseClient.postStudentLocation(studentLocation: StudentLocation.dummy)
+        parseClient.postStudentLocation(studentLocation: StudentLocation.dummy, updating: true)
     }
+    
 }
 

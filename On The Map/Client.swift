@@ -10,16 +10,36 @@ import Foundation
 
 class Client {
     
-    func get(url urlString: String, with headers: [String: String] = [:], and body: String = "", parameters: [String:AnyObject] = [:], completion: @escaping SessionResponse) {
-        performRequestOn(url: urlString, using: "GET", with: headers, and: body, parameters: parameters, completion: completion)
+    enum HTTPMethod: String {
+        case get = "GET"
+        case post = "POST"
+        case put = "PUT"
     }
     
-    func post(url urlString: String, with headers: [String: String] = [:], and body: String = "", parameters: [String:AnyObject] = [:], completion: @escaping SessionResponse) {
-        performRequestOn(url: urlString, using: "POST", with: headers, and: body,parameters: parameters, completion: completion)
+    // MARK: - Convenience Functions
+    
+    func get(url urlString: String, with headers: [String: String] = [:], body: String = "", parameters: [String:AnyObject] = [:], completion: @escaping SessionResponse) {
+        performRequestOn(url: urlString, using: .get, with: headers, and: body, parameters: parameters, completion: completion)
     }
-    func put(url urlString: String, with headers: [String: String] = [:], and body: String = "", parameters: [String:AnyObject] = [:], completion: @escaping SessionResponse) {
-        performRequestOn(url: urlString, using: "PUT", with: headers, and: body, parameters: parameters, completion: completion)
+    
+    func post(urlString: String, headers: [String: String] = [:], body: String = "", parameters: [String:AnyObject] = [:], completion: @escaping SessionResponse) {
+        performRequestOn(url: urlString, using: .post, with: headers, and: body,parameters: parameters, completion: completion)
     }
+    func put(urlString: String, headers: [String: String] = [:], body: String = "", parameters: [String:AnyObject] = [:], completion: @escaping SessionResponse) {
+        performRequestOn(url: urlString, using: .put, with: headers, and: body, parameters: parameters, completion: completion)
+    }
+    
+    // MARK:- JSON Serialization and Deserialization
+    
+    func JSONSerialize(jsonObject: [String: AnyObject]) throws -> Data {
+        return try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+    }
+    
+    func JSONDeserialize(jsonData: Data) throws -> Dictionary<String, AnyObject> {
+        return try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! Dictionary<String, AnyObject>
+    }
+    
+    // MARK:- Netowrk Request Functionss
     
     private func escapedParameters(_ parameters: [String:AnyObject]) -> String {
         
@@ -29,7 +49,7 @@ class Client {
             var keyValuePairs = [String]()
             
             for (key, value) in parameters {
-                
+                print(value)
                 // make sure that it is a string value
                 let stringValue = "\(value)"
                 
@@ -45,7 +65,7 @@ class Client {
         }
     }
     
-    private func performRequestOn(url urlString: String, using method: String, with headers: [String: String], and body: String, parameters: [String:AnyObject], completion: @escaping SessionResponse) {
+    func performRequestOn(url urlString: String, using method: HTTPMethod, with headers: [String: String], and body: String, parameters: [String:AnyObject], completion: @escaping SessionResponse) {
         
         // Build the URL
         let urlParametersString = escapedParameters(parameters)
@@ -54,7 +74,7 @@ class Client {
         let request = NSMutableURLRequest(url: URL(string: finalURLString)!)
         
         // Set the method of the Request
-        request.httpMethod = method
+        request.httpMethod = method.rawValue
         
         // Set the Headers, if any
         for (httpHeaderField, value) in headers {
@@ -62,7 +82,7 @@ class Client {
         }
         
         // Set the body of the HTTP Request if it's not a GET request
-        if method != "GET" {
+        if method != .get {
             request.httpBody = body.data(using: String.Encoding.utf8)
         }
         
