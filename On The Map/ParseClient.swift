@@ -32,11 +32,12 @@ class ParseClient: Client {
             }
             print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
             do {
-                let jsonArray = try self.JSONDeserializeArray(jsonData: data!)
+                let jsonDict = try self.JSONDeserialize(jsonData: data!)
+                let jsonArray = jsonDict["results"] as! [Dictionary<String, AnyObject>]
                 var studentLocations = [StudentLocation]()
                 
-                for jsonDict in jsonArray {
-                    studentLocations.append(StudentLocation.from(jsonDict: jsonDict))
+                for studentDict in jsonArray {
+                    studentLocations.append(StudentLocation.from(jsonDict: studentDict))
                 }
                 completion(studentLocations, nil)
             } catch {
@@ -66,7 +67,7 @@ class ParseClient: Client {
             }
             print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
             do {
-                let jsonDict = try self.JSONDeserializeObject(jsonData: data!)
+                let jsonDict = try self.JSONDeserialize(jsonData: data!)
                 completion(StudentLocation.from(jsonDict: jsonDict), nil)
             } catch {
                 print(error.localizedDescription)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8A358BCA1EFD7D2000270841 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A358BC91EFD7D2000270841 /* GCDBlackBox.swift */; };
+		8A358BCC1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A358BCB1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift */; };
 		8A50DCFC1EFCEF5500213DE5 /* StudentMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFB1EFCEF5500213DE5 /* StudentMapViewController.swift */; };
 		8A50DCFE1EFCEF7200213DE5 /* StudentListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFD1EFCEF7200213DE5 /* StudentListTableViewController.swift */; };
 		8A50DD001EFCEFA000213DE5 /* StudentInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFF1EFCEFA000213DE5 /* StudentInformationViewController.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		8A358BC91EFD7D2000270841 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
+		8A358BCB1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StudentMapViewController+MapKitDelegate.swift"; sourceTree = "<group>"; };
 		8A50DCFB1EFCEF5500213DE5 /* StudentMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentMapViewController.swift; sourceTree = "<group>"; };
 		8A50DCFD1EFCEF7200213DE5 /* StudentListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentListTableViewController.swift; sourceTree = "<group>"; };
 		8A50DCFF1EFCEFA000213DE5 /* StudentInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformationViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			children = (
 				8AD3897B1EFD0D6800DEB419 /* LoginViewController.swift */,
 				8A50DCFB1EFCEF5500213DE5 /* StudentMapViewController.swift */,
+				8A358BCB1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift */,
 				8A50DCFD1EFCEF7200213DE5 /* StudentListTableViewController.swift */,
 				8A50DCFF1EFCEFA000213DE5 /* StudentInformationViewController.swift */,
 			);
@@ -263,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A358BCC1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift in Sources */,
 				8A358BCA1EFD7D2000270841 /* GCDBlackBox.swift in Sources */,
 				8AA44D521EFC4B6B00D2C3D5 /* UdacityClient.swift in Sources */,
 				8A50DD051EFCF47600213DE5 /* UdacityDelegate.swift in Sources */,

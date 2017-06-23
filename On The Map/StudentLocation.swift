@@ -43,8 +43,8 @@ struct StudentLocation {
         studentLocation.uniqueKey = jsonDict["uniqueKey"] as! String
         studentLocation.firstName = jsonDict["firstName"] as! String
         studentLocation.lastName = jsonDict["lastName"] as! String
-        studentLocation.mapString = jsonDict["mapString"] as! String
-        studentLocation.mediaURL = jsonDict["mediaURL"] as! String
+        studentLocation.mapString = jsonDict["mapString"] as? String ?? ""
+        studentLocation.mediaURL = jsonDict["mediaURL"] as? String ?? ""
         studentLocation.latitude = jsonDict["latitude"] as! Float
         studentLocation.longitude = jsonDict["longitude"] as! Float
         return studentLocation

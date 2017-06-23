@@ -80,6 +80,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="mapView" destination="425-Tv-PfW" id="fch-EX-a3h"/>
                         <segue destination="vyb-QS-EWi" kind="presentation" identifier="showInformationPosting" id="woS-Cb-2FQ"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="showLogin" id="LY4-I6-QTo"/>
                     </connections>

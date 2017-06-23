@@ -35,12 +35,8 @@ class Client {
         return try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
     }
     
-    func JSONDeserializeObject(jsonData: Data) throws -> Dictionary<String, AnyObject> { // For Deserializing a JSONObject
+    func JSONDeserialize(jsonData: Data) throws -> Dictionary<String, AnyObject> { // For Deserializing a JSONObject
         return try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! Dictionary<String, AnyObject>
-    }
-    
-    func JSONDeserializeArray(jsonData: Data) throws -> [Dictionary<String, AnyObject>] { // For Deserializing a JSONArray Of JSONObects
-        return try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! [Dictionary<String, AnyObject>]
     }
     
     // MARK:- Netowrk Request Functionss

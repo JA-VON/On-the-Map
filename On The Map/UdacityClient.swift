@@ -17,7 +17,7 @@ class UdacityClient: Client {
     
     func handleSession(data: Data?, completion: UdacitySessionResponse){
         do {
-            let jsonDict = try self.JSONDeserializeObject(jsonData: data!)
+            let jsonDict = try self.JSONDeserialize(jsonData: data!)
             let session = jsonDict["session"] as! Dictionary<String, AnyObject>
             let sessionId = session["id"] as! String
             completion(sessionId, nil)
@@ -126,7 +126,7 @@ class UdacityClient: Client {
             print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
             
             do {
-                let jsonDict = try self.JSONDeserializeObject(jsonData: newData!)
+                let jsonDict = try self.JSONDeserialize(jsonData: newData!)
                 let udacityUser = UdacityUser.from(jsonDict: jsonDict)
                 completion(udacityUser, nil)
             } catch {
