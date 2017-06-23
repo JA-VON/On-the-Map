@@ -25,9 +25,10 @@ struct UdacityUser {
     static func from(jsonDict: Dictionary<String, AnyObject>) -> UdacityUser {
         var udacityUser = UdacityUser()
         
-        udacityUser.key = jsonDict["uniqueKey"] as! String
-        udacityUser.firstName = jsonDict["firstName"] as! String
-        udacityUser.lastName = jsonDict["lastName"] as! String
+        let userDict = jsonDict["user"] as! Dictionary<String, AnyObject>
+        udacityUser.key = userDict["key"] as! String
+        udacityUser.firstName = userDict["first_name"] as! String
+        udacityUser.lastName = userDict["last_name"] as! String
         return udacityUser
     }
 }

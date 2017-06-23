@@ -11,6 +11,6 @@ import Foundation
 @objc
 protocol UdacityDelegate: class { // Class means this protocol can't be implemented by a struct
     func didAttemptLogin(with email: String, password: String)
-    func didCompleteLogin(sessionId: String?, error: Error?)
+    func didCompleteLogin(sessionId: String?, userId: String?, error: Error?)
     @objc optional func didClickSignUp()
 }

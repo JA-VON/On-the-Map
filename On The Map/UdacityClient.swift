@@ -18,13 +18,16 @@ class UdacityClient: Client {
     func handleSession(data: Data?, completion: UdacitySessionResponse){
         do {
             let jsonDict = try self.JSONDeserialize(jsonData: data!)
+            let account = jsonDict["account"] as! Dictionary<String, AnyObject>
+            let userId = account["key"] as! String
+            
             let session = jsonDict["session"] as! Dictionary<String, AnyObject>
             let sessionId = session["id"] as! String
-            completion(sessionId, nil)
+            completion(sessionId, userId, nil)
         } catch {
             print(error.localizedDescription)
             let userInfo = [NSLocalizedDescriptionKey : error.localizedDescription]
-            completion(nil, NSError(domain: "StudentCreationFromJSON", code: 1, userInfo: userInfo))
+            completion(nil, nil, NSError(domain: "StudentCreationFromJSON", code: 1, userInfo: userInfo))
         }
     }
     
@@ -34,7 +37,7 @@ class UdacityClient: Client {
             let errorDescription = "Need either username(email) and password or a Facebook Access Token"
             print(errorDescription)
             let userInfo = [NSLocalizedDescriptionKey : errorDescription]
-            completion(nil, NSError(domain: "StartSession", code: 1, userInfo: userInfo))
+            completion(nil, nil, NSError(domain: "StartSession", code: 1, userInfo: userInfo))
             return
         }
         
@@ -74,7 +77,7 @@ class UdacityClient: Client {
         super.post(urlString: sessionURL, headers: headers, parameters: parameters as [String : AnyObject]) { data, err in
             if let err = err { // Handle error…
                 print("\(err.localizedDescription)")
-                completion(nil, err)
+                completion(nil, nil, err)
                 return
             }
             
@@ -103,7 +106,7 @@ class UdacityClient: Client {
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if let error = error { // Handle error…
                 print("\(error.localizedDescription)")
-                completion(nil, error)
+                completion(nil, nil, error)
                 return
             }
             let range = Range(5..<data!.count)

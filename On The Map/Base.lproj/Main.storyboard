@@ -100,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7hA-VV-AJh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3136.8000000000002" y="-267.61619190404798"/>
+            <point key="canvasLocation" x="3136.2318840579715" y="-268.20652173913044"/>
         </scene>
         <!--StudentInformationViewController-->
         <scene sceneID="gvL-ON-eXP">
@@ -188,6 +188,7 @@
                     <connections>
                         <outlet property="locationTextField" destination="hVv-CD-SDh" id="dci-wn-ld5"/>
                         <outlet property="websiteTextField" destination="ELz-c2-zrn" id="0UF-y3-dEv"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="showLogin" id="L1d-Je-txK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tab-UZ-U9D" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -236,18 +237,6 @@
                                 <action selector="logoutButtonClicked:" destination="LNR-ul-dGX" id="0Mf-OB-bAo"/>
                             </connections>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="knS-L5-yAa">
-                                <connections>
-                                    <action selector="addButtonClicked:" destination="LNR-ul-dGX" id="01C-P4-amM"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="refresh" id="28f-0t-Bvh">
-                                <connections>
-                                    <action selector="refreshButtonClicked:" destination="LNR-ul-dGX" id="2L6-dc-hb5"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="showLogin" id="PBg-dV-e3k"/>
@@ -324,7 +313,7 @@
         <image name="World Icon" width="52" height="67"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PBg-dV-e3k"/>
-        <segue reference="a8c-2y-JSH"/>
+        <segue reference="LY4-I6-QTo"/>
+        <segue reference="woS-Cb-2FQ"/>
     </inferredMetricsTieBreakers>
 </document>

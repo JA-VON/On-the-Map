@@ -21,18 +21,21 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: UdacityDelegate {
-    
     func didAttemptLogin(with email: String, password: String) {
         print("Email: \(email), Password: \(password)")
     }
     
-    func didCompleteLogin(sessionId: String?, error: Error?) {
+    func didCompleteLogin(sessionId: String?, userId: String?, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
+            showAlert(title: "Oops!", message: "There was an error logging you in, please try again later")
             return
         }
         
         print("Session: \(sessionId!)")
+        print("User: \(userId!)")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.userId = userId
         self.performSegue(withIdentifier: "showHome", sender: self)
     }
 }

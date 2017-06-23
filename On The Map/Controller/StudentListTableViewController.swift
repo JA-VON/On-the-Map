@@ -26,7 +26,7 @@ class StudentListTableViewController: UITableViewController {
     }
     
     @IBAction func logoutButtonClicked(_ sender: Any) {
-        UdacityClient.shared.endSession(completion: { sessionId, error in
+        UdacityClient.shared.endSession(completion: { sessionId, userId, error in
             if let error = error {
                 print(error.localizedDescription)
             } else {
@@ -38,13 +38,6 @@ class StudentListTableViewController: UITableViewController {
         })
     }
     
-    @IBAction func addButtonClicked(_ sender: Any) {
-        self.performSegue(withIdentifier: "showStudentInformation", sender: self)
-    }
-    
-    @IBAction func refreshButtonClicked(_ sender: Any) {
-        refresh()
-    }
 }
 
 // MARK:- TableView DataSource

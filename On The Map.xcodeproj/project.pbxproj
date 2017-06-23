@@ -10,6 +10,7 @@
 		8A358BCA1EFD7D2000270841 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A358BC91EFD7D2000270841 /* GCDBlackBox.swift */; };
 		8A358BCC1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A358BCB1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift */; };
 		8A3826911EFDA3A30006688A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3826901EFDA3A30006688A /* Utils.swift */; };
+		8A3826931EFDC2DA0006688A /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3826921EFDC2DA0006688A /* UIViewController+Alert.swift */; };
 		8A50DCFC1EFCEF5500213DE5 /* StudentMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFB1EFCEF5500213DE5 /* StudentMapViewController.swift */; };
 		8A50DCFE1EFCEF7200213DE5 /* StudentListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFD1EFCEF7200213DE5 /* StudentListTableViewController.swift */; };
 		8A50DD001EFCEFA000213DE5 /* StudentInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFF1EFCEFA000213DE5 /* StudentInformationViewController.swift */; };
@@ -35,6 +36,7 @@
 		8A358BC91EFD7D2000270841 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 		8A358BCB1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StudentMapViewController+MapKitDelegate.swift"; sourceTree = "<group>"; };
 		8A3826901EFDA3A30006688A /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		8A3826921EFDC2DA0006688A /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		8A50DCFB1EFCEF5500213DE5 /* StudentMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentMapViewController.swift; sourceTree = "<group>"; };
 		8A50DCFD1EFCEF7200213DE5 /* StudentListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentListTableViewController.swift; sourceTree = "<group>"; };
 		8A50DCFF1EFCEFA000213DE5 /* StudentInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformationViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				8A358BCB1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift */,
 				8A50DCFD1EFCEF7200213DE5 /* StudentListTableViewController.swift */,
 				8A50DCFF1EFCEFA000213DE5 /* StudentInformationViewController.swift */,
+				8A3826921EFDC2DA0006688A /* UIViewController+Alert.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				8AA9F6DD1EFB6DD7007EB173 /* AppDelegate.swift in Sources */,
 				8AA9F6FB1EFB817F007EB173 /* Types.swift in Sources */,
 				8A50DCFE1EFCEF7200213DE5 /* StudentListTableViewController.swift in Sources */,
+				8A3826931EFDC2DA0006688A /* UIViewController+Alert.swift in Sources */,
 				8AA9F6F61EFB7002007EB173 /* Client.swift in Sources */,
 				8AA9F6EF1EFB6E51007EB173 /* Constants.swift in Sources */,
 			);

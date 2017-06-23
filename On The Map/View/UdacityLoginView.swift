@@ -23,6 +23,9 @@ class UdacityLoginView: UIView {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var noAccountLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
+    enum ViewState{ case idle, logginIn }
     
     
     // MARK:- View and Storyboard Setup
@@ -31,6 +34,7 @@ class UdacityLoginView: UIView {
         self.view = UINib(nibName: nibName, bundle: Bundle(for: type(of: self))).instantiate(withOwner: self, options: nil)[0] as! UIView // Loads the xib file and creates a UIView isntance
         self.loginButton.setCornerRadius(radius: 5) // Rounded Corner on Button
         errorLabel.isHidden = true
+        loadingIndicator.stopAnimating()
         
         self.view.frame = bounds
         self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -54,6 +58,19 @@ class UdacityLoginView: UIView {
         self.isUserInteractionEnabled = enabled
     }
     
+    func changeViewState(state: ViewState) {
+        
+        let enabled = state == .idle
+        
+        if enabled {
+            loadingIndicator.stopAnimating()
+        } else {
+            loadingIndicator.startAnimating()
+        }
+        emailTextField.isEnabled = enabled
+        passwordTextField.isEnabled = enabled
+        loginButton.isEnabled = enabled
+    }
     // MARK:-  IBActions
     
     @IBAction func loginButtonClicked(_ sender: Any) {
@@ -69,13 +86,16 @@ class UdacityLoginView: UIView {
         let username = emailTextField.text!
         let password = passwordTextField.text!
         
+        self.changeViewState(state: .logginIn)
+        
         delegate?.didAttemptLogin(with: username, password: password)
         
         let udacityClient = UdacityClient.shared
-        udacityClient.startSession(username: username, password: password, completion: { sessionId, error in
+        udacityClient.startSession(username: username, password: password, completion: { sessionId, userId, error in
             
             performUIUpdatesOnMain {
-                self.delegate?.didCompleteLogin(sessionId: sessionId, error: error)
+                self.changeViewState(state: .idle)
+                self.delegate?.didCompleteLogin(sessionId: sessionId, userId: userId, error: error)
             }
             
         })
