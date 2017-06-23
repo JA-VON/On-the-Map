@@ -58,6 +58,7 @@ class UdacityLoginView: UIView {
         self.isUserInteractionEnabled = enabled
     }
     
+    // Configure subviews based on whether a login is being attempted or not
     func changeViewState(state: ViewState) {
         
         let enabled = state == .idle
@@ -67,10 +68,9 @@ class UdacityLoginView: UIView {
         } else {
             loadingIndicator.startAnimating()
         }
-        emailTextField.isEnabled = enabled
-        passwordTextField.isEnabled = enabled
-        loginButton.isEnabled = enabled
+        setUserInteraction(enabled: enabled)
     }
+    
     // MARK:-  IBActions
     
     @IBAction func loginButtonClicked(_ sender: Any) {
@@ -104,11 +104,5 @@ class UdacityLoginView: UIView {
     
     @IBAction func signUpButtonClicked(_ sender: Any) {
         delegate?.didClickSignUp?()
-    }
-}
-
-extension UdacityLoginView: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.loginButton.isEnabled = !(emailTextField.text?.isEmpty)! && !(passwordTextField.text?.isEmpty)! // Enable loginButton if both Fields are not empty
     }
 }
