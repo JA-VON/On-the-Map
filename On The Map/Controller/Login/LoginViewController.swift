@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FacebookLogin
 
 class LoginViewController: UIViewController {
     @IBOutlet weak var udacityLoginView: UdacityLoginView!
@@ -15,6 +16,11 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         udacityLoginView.delegate = self
+        
+        // Add Facebook Login Button
+        let loginButton = LoginButton(readPermissions: [.publicProfile])
+        udacityLoginView.addSubview(loginButton)
+        
     }
     
 
