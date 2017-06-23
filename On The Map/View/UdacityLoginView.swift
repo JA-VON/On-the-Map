@@ -22,6 +22,7 @@ class UdacityLoginView: UIView {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var noAccountLabel: UILabel!
+    @IBOutlet weak var errorLabel: UILabel!
     
     
     // MARK:- View and Storyboard Setup
@@ -29,6 +30,7 @@ class UdacityLoginView: UIView {
     func setup() {
         self.view = UINib(nibName: nibName, bundle: Bundle(for: type(of: self))).instantiate(withOwner: self, options: nil)[0] as! UIView // Loads the xib file and creates a UIView isntance
         self.loginButton.setCornerRadius(radius: 5) // Rounded Corner on Button
+        errorLabel.isHidden = true
         
         self.view.frame = bounds
         self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -46,13 +48,37 @@ class UdacityLoginView: UIView {
         self.view.prepareForInterfaceBuilder()
     }
     
+    // TODO: Function for allowing Login with accessToken
+    
+    func setUserInteraction(enabled: Bool) {
+        self.isUserInteractionEnabled = enabled
+    }
+    
     // MARK:-  IBActions
     
     @IBAction func loginButtonClicked(_ sender: Any) {
-        delegate?.didAttemptLogin(with: emailTextField.text!, password: passwordTextField.text!)
+        
+        guard !(emailTextField.text?.isEmpty)! && !(passwordTextField.text?.isEmpty)! else {
+            errorLabel.isHidden = false
+            errorLabel.text = "Please enter both an email and a password"
+            return
+        }
+        
+        errorLabel.isHidden = true
+        
+        let username = emailTextField.text!
+        let password = passwordTextField.text!
+        
+        delegate?.didAttemptLogin(with: username, password: password)
         
         let udacityClient = UdacityClient.shared
-        udacityClient.startSession(completion: (delegate?.didCompleteLogin)!)
+        udacityClient.startSession(username: username, password: password, completion: { sessionId, error in
+            
+            performUIUpdatesOnMain {
+                self.delegate?.didCompleteLogin(sessionId: sessionId, error: error)
+            }
+            
+        })
         
     }
     

@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UdacityLoginView" customModule="On_The_Map" customModuleProvider="target">
             <connections>
                 <outlet property="emailTextField" destination="jZd-PQ-aAj" id="ZS5-9y-3VW"/>
+                <outlet property="errorLabel" destination="YFH-4r-bFi" id="4i0-cN-MHv"/>
                 <outlet property="loginButton" destination="KdR-DE-bWj" id="gKJ-aG-31g"/>
                 <outlet property="noAccountLabel" destination="CWN-GX-bJp" id="VoW-mL-isJ"/>
                 <outlet property="passwordTextField" destination="fh8-ru-URh" id="Drm-us-NCk"/>
@@ -24,10 +25,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="f1r-g3-2Yr">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="302"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="327"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Udacity Logo" translatesAutoresizingMaskIntoConstraints="NO" id="zpt-zj-NVD">
-                            <rect key="frame" x="156.5" y="0.0" width="62" height="62"/>
+                            <rect key="frame" x="157" y="0.0" width="62" height="62"/>
                         </imageView>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jZd-PQ-aAj">
                             <rect key="frame" x="0.0" y="72" width="375" height="50"/>
@@ -39,7 +40,7 @@
                             </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                         </textField>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fh8-ru-URh">
                             <rect key="frame" x="0.0" y="132" width="375" height="50"/>
@@ -53,7 +54,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KdR-DE-bWj">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KdR-DE-bWj">
                             <rect key="frame" x="0.0" y="192" width="375" height="50"/>
                             <color key="backgroundColor" red="0.0" green="0.69903510808944702" blue="0.90346962213516235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -69,17 +70,23 @@
                                 <action selector="loginButtonClicked:" destination="-1" eventType="touchUpInside" id="FgB-37-mZQ"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFH-4r-bFi" userLabel="Error Label">
+                            <rect key="frame" x="147" y="252" width="82" height="15"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pg1-gc-29D">
-                            <rect key="frame" x="80.5" y="252" width="214.5" height="50"/>
+                            <rect key="frame" x="80" y="277" width="215" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWN-GX-bJp">
-                                    <rect key="frame" x="0.0" y="16" width="160.5" height="18"/>
+                                    <rect key="frame" x="0.0" y="16" width="161" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yua-HI-IoA">
-                                    <rect key="frame" x="160.5" y="10.5" width="54" height="29"/>
+                                    <rect key="frame" x="161" y="11" width="54" height="29"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                     <state key="normal" title="Sign Up">
                                         <color key="titleColor" red="0.23472559452056885" green="0.7545052170753479" blue="0.91238832473754883" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

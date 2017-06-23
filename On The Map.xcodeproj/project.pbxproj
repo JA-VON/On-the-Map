@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A358BCA1EFD7D2000270841 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A358BC91EFD7D2000270841 /* GCDBlackBox.swift */; };
 		8A50DCFC1EFCEF5500213DE5 /* StudentMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFB1EFCEF5500213DE5 /* StudentMapViewController.swift */; };
 		8A50DCFE1EFCEF7200213DE5 /* StudentListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFD1EFCEF7200213DE5 /* StudentListTableViewController.swift */; };
 		8A50DD001EFCEFA000213DE5 /* StudentInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFF1EFCEFA000213DE5 /* StudentInformationViewController.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A358BC91EFD7D2000270841 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 		8A50DCFB1EFCEF5500213DE5 /* StudentMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentMapViewController.swift; sourceTree = "<group>"; };
 		8A50DCFD1EFCEF7200213DE5 /* StudentListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentListTableViewController.swift; sourceTree = "<group>"; };
 		8A50DCFF1EFCEFA000213DE5 /* StudentInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformationViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				8AA9F6DC1EFB6DD7007EB173 /* AppDelegate.swift */,
+				8A358BC91EFD7D2000270841 /* GCDBlackBox.swift */,
 				8AA9F6F71EFB7B51007EB173 /* Model */,
 				8AA44D551EFCA43700D2C3D5 /* View */,
 				8AA44D561EFCA49900D2C3D5 /* Controller */,
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A358BCA1EFD7D2000270841 /* GCDBlackBox.swift in Sources */,
 				8AA44D521EFC4B6B00D2C3D5 /* UdacityClient.swift in Sources */,
 				8A50DD051EFCF47600213DE5 /* UdacityDelegate.swift in Sources */,
 				8A50DCFC1EFCEF5500213DE5 /* StudentMapViewController.swift in Sources */,

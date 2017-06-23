@@ -21,6 +21,16 @@ class StudentMapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func logoutClicked(_ sender: Any) {
+        UdacityClient.shared.endSession(completion: { sessionId, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print(sessionId!)
+            }
+            self.performSegue(withIdentifier: "showLogin", sender: self)
+        })
+    }
 
     /*
     // MARK: - Navigation

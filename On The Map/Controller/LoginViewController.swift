@@ -13,8 +13,10 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        udacityLoginView.delegate = self
     }
+    
 
 }
 
@@ -27,9 +29,11 @@ extension LoginViewController: UdacityDelegate {
     func didCompleteLogin(sessionId: String?, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
+            return
         }
         
         print("Session: \(sessionId!)")
+        self.performSegue(withIdentifier: "showHome", sender: self)
     }
     
     func didClickSignUp() {

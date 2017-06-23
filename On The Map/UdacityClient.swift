@@ -31,7 +31,10 @@ class UdacityClient: Client {
     func startSession(username: String? = nil, password: String? = nil, accessToken: String? = nil, completion: @escaping UdacitySessionResponse) {
         
         guard (username != nil && password != nil) || accessToken != nil else {
-            print("Need either username and password or a Facebook Access Token")
+            let errorDescription = "Need either username(email) and password or a Facebook Access Token"
+            print(errorDescription)
+            let userInfo = [NSLocalizedDescriptionKey : errorDescription]
+            completion(nil, NSError(domain: "StartSession", code: 1, userInfo: userInfo))
             return
         }
         
