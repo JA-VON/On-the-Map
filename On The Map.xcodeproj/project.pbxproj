@@ -93,7 +93,7 @@
 				8AD5F3981EFCC1E700FC3DFA /* UdacityLoginView.swift */,
 				8A50DD041EFCF47600213DE5 /* UdacityDelegate.swift */,
 			);
-			name = Udacity;
+			path = Udacity;
 			sourceTree = "<group>";
 		};
 		8A6C0A851EFDD6B500136946 /* Login */ = {
