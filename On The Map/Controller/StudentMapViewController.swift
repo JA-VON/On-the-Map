@@ -15,12 +15,12 @@ class StudentMapViewController: UIViewController {
     var studentLocations = [StudentLocation]()
     var annotations = [MKPointAnnotation]()
     
-    let parseClient = ParseClient.shared
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     func updateMap() {
         self.mapView.removeAnnotations(annotations)
         annotations = [MKPointAnnotation]()
-        for studentLocation in studentLocations {
+        for studentLocation in self.appDelegate.studentLocations {
             
             // Notice that the float values are being used to create CLLocationDegree values.
             // This is a version of the Double type.
@@ -48,23 +48,18 @@ class StudentMapViewController: UIViewController {
         self.mapView.addAnnotations(annotations)
     }
     
-    func loadStudentLocations() {
-        parseClient.getStudentLocations(completion: { studentLocations, error in
-            
-            guard error == nil else {
-                print(error!.localizedDescription)
-                return
-            }
-            self.studentLocations = studentLocations!
-            performUIUpdatesOnMain {
-                self.updateMap()
-            }
-        })
+    func refresh() {
+        loadStudentLocations(completion: updateMap)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadStudentLocations()
+        mapView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refresh()
     }
     
     @IBAction func logoutClicked(_ sender: Any) {
@@ -80,5 +75,11 @@ class StudentMapViewController: UIViewController {
         })
     }
 
+    @IBAction func addButtonClicked(_ sender: Any) {
+        self.performSegue(withIdentifier: "showStudentInformation", sender: self)
+    }
     
+    @IBAction func refreshButtonClicked(_ sender: Any) {
+        refresh()
+    }
 }

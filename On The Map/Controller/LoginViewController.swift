@@ -35,8 +35,4 @@ extension LoginViewController: UdacityDelegate {
         print("Session: \(sessionId!)")
         self.performSegue(withIdentifier: "showHome", sender: self)
     }
-    
-    func didClickSignUp() {
-        print("Sign up clicked")
-    }
 }

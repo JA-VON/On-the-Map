@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8A358BCA1EFD7D2000270841 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A358BC91EFD7D2000270841 /* GCDBlackBox.swift */; };
 		8A358BCC1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A358BCB1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift */; };
+		8A3826911EFDA3A30006688A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3826901EFDA3A30006688A /* Utils.swift */; };
 		8A50DCFC1EFCEF5500213DE5 /* StudentMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFB1EFCEF5500213DE5 /* StudentMapViewController.swift */; };
 		8A50DCFE1EFCEF7200213DE5 /* StudentListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFD1EFCEF7200213DE5 /* StudentListTableViewController.swift */; };
 		8A50DD001EFCEFA000213DE5 /* StudentInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A50DCFF1EFCEFA000213DE5 /* StudentInformationViewController.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		8A358BC91EFD7D2000270841 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 		8A358BCB1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StudentMapViewController+MapKitDelegate.swift"; sourceTree = "<group>"; };
+		8A3826901EFDA3A30006688A /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		8A50DCFB1EFCEF5500213DE5 /* StudentMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentMapViewController.swift; sourceTree = "<group>"; };
 		8A50DCFD1EFCEF7200213DE5 /* StudentListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentListTableViewController.swift; sourceTree = "<group>"; };
 		8A50DCFF1EFCEFA000213DE5 /* StudentInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformationViewController.swift; sourceTree = "<group>"; };
@@ -147,9 +149,12 @@
 			children = (
 				8AA9F6DC1EFB6DD7007EB173 /* AppDelegate.swift */,
 				8A358BC91EFD7D2000270841 /* GCDBlackBox.swift */,
+				8A3826901EFDA3A30006688A /* Utils.swift */,
 				8AA9F6F71EFB7B51007EB173 /* Model */,
 				8AA44D551EFCA43700D2C3D5 /* View */,
 				8AA44D561EFCA49900D2C3D5 /* Controller */,
+				8AA9F6F21EFB6FC8007EB173 /* Assets */,
+				8AA9F6F31EFB6FD3007EB173 /* Storyboards */,
 				8AA9F6F41EFB6FDD007EB173 /* Supporting Files */,
 			);
 			path = "On The Map";
@@ -176,8 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				8AA9F6E81EFB6DD7007EB173 /* Info.plist */,
-				8AA9F6F21EFB6FC8007EB173 /* Assets */,
-				8AA9F6F31EFB6FD3007EB173 /* Storyboards */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				8A50DD021EFCF22900213DE5 /* UIView+CornerRadius.swift in Sources */,
 				8AA44D541EFC72A000D2C3D5 /* UdacityUser.swift in Sources */,
 				8A50DD001EFCEFA000213DE5 /* StudentInformationViewController.swift in Sources */,
+				8A3826911EFDA3A30006688A /* Utils.swift in Sources */,
 				8AA44D501EFC367300D2C3D5 /* StudentLocation.swift in Sources */,
 				8AA9F6DD1EFB6DD7007EB173 /* AppDelegate.swift in Sources */,
 				8AA9F6FB1EFB817F007EB173 /* Types.swift in Sources */,

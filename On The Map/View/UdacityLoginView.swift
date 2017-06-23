@@ -83,7 +83,7 @@ class UdacityLoginView: UIView {
     }
     
     @IBAction func signUpButtonClicked(_ sender: Any) {
-        delegate?.didClickSignUp()
+        delegate?.didClickSignUp?()
     }
 }
 
