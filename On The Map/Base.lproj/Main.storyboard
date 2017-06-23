@@ -47,10 +47,10 @@
             </objects>
             <point key="canvasLocation" x="120.8" y="133.5832083958021"/>
         </scene>
-        <!--MapViewController-->
+        <!--StudentMapViewController-->
         <scene sceneID="PpZ-rT-5EL">
             <objects>
-                <viewController id="rAA-vg-uyf" userLabel="MapViewController" sceneMemberID="viewController">
+                <viewController id="rAA-vg-uyf" userLabel="StudentMapViewController" customClass="StudentMapViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lQj-xZ-s4Z"/>
                         <viewControllerLayoutGuide type="bottom" id="Hfg-dg-KHJ"/>
@@ -58,21 +58,32 @@
                     <view key="view" contentMode="scaleToFill" id="s3j-Sk-soQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="425-Tv-PfW">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="425-Tv-PfW" secondAttribute="trailing" id="6du-Dr-uQe"/>
+                            <constraint firstItem="425-Tv-PfW" firstAttribute="top" secondItem="lQj-xZ-s4Z" secondAttribute="bottom" id="8Dt-bI-8oa"/>
+                            <constraint firstItem="425-Tv-PfW" firstAttribute="leading" secondItem="s3j-Sk-soQ" secondAttribute="leading" id="ZGC-0s-cDf"/>
+                            <constraint firstItem="Hfg-dg-KHJ" firstAttribute="top" secondItem="425-Tv-PfW" secondAttribute="bottom" id="ksi-kW-6jC"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" id="8lf-sv-OtN"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="Map Deselected" selectedImage="Map Selected" id="8lf-sv-OtN"/>
                     <connections>
                         <segue destination="vyb-QS-EWi" kind="presentation" identifier="showInformationPosting" id="woS-Cb-2FQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7hA-VV-AJh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2199" y="-267"/>
+            <point key="canvasLocation" x="2197.5999999999999" y="-267.61619190404798"/>
         </scene>
-        <!--InformationPostingViewController-->
+        <!--StudentInformationViewController-->
         <scene sceneID="gvL-ON-eXP">
             <objects>
-                <viewController id="vyb-QS-EWi" userLabel="InformationPostingViewController" sceneMemberID="viewController">
+                <viewController id="vyb-QS-EWi" userLabel="StudentInformationViewController" customClass="StudentInformationViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oms-Ha-aF7"/>
                         <viewControllerLayoutGuide type="bottom" id="ebY-r4-OVf"/>
@@ -87,21 +98,34 @@
             </objects>
             <point key="canvasLocation" x="3117" y="-264"/>
         </scene>
-        <!--AnnotationsListTableViewController-->
+        <!--StudentListTableViewController-->
         <scene sceneID="qdG-jK-lQh">
             <objects>
-                <tableViewController id="LNR-ul-dGX" userLabel="AnnotationsListTableViewController" sceneMemberID="viewController">
+                <tableViewController id="LNR-ul-dGX" userLabel="StudentListTableViewController" customClass="StudentListTableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ltf-y3-0w2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="iuI-qF-dQd">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentListTableViewCell" textLabel="uj5-Me-4Rk" imageView="qe6-yx-IkX" style="IBUITableViewCellStyleDefault" id="iuI-qF-dQd">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iuI-qF-dQd" id="Pd7-aP-jvv">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uj5-Me-4Rk">
+                                            <rect key="frame" x="54" y="0.0" width="306" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Pin Icon" id="qe6-yx-IkX">
+                                            <rect key="frame" x="15" y="9" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -110,7 +134,7 @@
                             <outlet property="delegate" destination="LNR-ul-dGX" id="D32-YW-fds"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="List" id="kmh-pC-TWL"/>
+                    <tabBarItem key="tabBarItem" title="List" image="List Deselected" selectedImage="List Selected" id="kmh-pC-TWL"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LUV-Ak-smH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -135,4 +159,11 @@
             <point key="canvasLocation" x="1084" y="134"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="List Deselected" width="75" height="50"/>
+        <image name="List Selected" width="75" height="50"/>
+        <image name="Map Deselected" width="75" height="50"/>
+        <image name="Map Selected" width="75" height="50"/>
+        <image name="Pin Icon" width="24" height="24"/>
+    </resources>
 </document>

@@ -36,7 +36,7 @@ struct StudentLocation {
     
     // MARK:- Serialization and deserialization
     
-    func from(jsonDict: Dictionary<String, AnyObject>) -> StudentLocation {
+    static func from(jsonDict: Dictionary<String, AnyObject>) -> StudentLocation {
         var studentLocation = StudentLocation()
         
         studentLocation.objectId = jsonDict["objectId"] as! String

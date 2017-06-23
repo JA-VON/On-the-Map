@@ -63,4 +63,8 @@ struct Constants {
             static let accessToken = "access_token"
         }
     }
+    
+    struct TableViewCellIdentifiers {
+        static let studentList = "studentListTableViewCell"
+    }
 }

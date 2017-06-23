@@ -22,7 +22,7 @@ struct UdacityUser {
         return udacityUser
     }
     
-    func from(jsonDict: Dictionary<String, AnyObject>) -> UdacityUser {
+    static func from(jsonDict: Dictionary<String, AnyObject>) -> UdacityUser {
         var udacityUser = UdacityUser()
         
         udacityUser.key = jsonDict["uniqueKey"] as! String

@@ -35,8 +35,12 @@ class Client {
         return try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
     }
     
-    func JSONDeserialize(jsonData: Data) throws -> Dictionary<String, AnyObject> {
+    func JSONDeserializeObject(jsonData: Data) throws -> Dictionary<String, AnyObject> { // For Deserializing a JSONObject
         return try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! Dictionary<String, AnyObject>
+    }
+    
+    func JSONDeserializeArray(jsonData: Data) throws -> [Dictionary<String, AnyObject>] { // For Deserializing a JSONArray Of JSONObects
+        return try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! [Dictionary<String, AnyObject>]
     }
     
     // MARK:- Netowrk Request Functionss
@@ -87,7 +91,33 @@ class Client {
         }
         
         // Start the session Task
-        let task = URLSession.shared.dataTask(with: (request as URLRequest) as URLRequest, completionHandler: completion)
+        let task = URLSession.shared.dataTask(with: (request as URLRequest) as URLRequest) { data, response, error in
+            func sendError(_ error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completion(nil, NSError(domain: "taskForNetworkRequest", code: 1, userInfo: userInfo))
+            }
+
+            /* GUARD: Was there an error? */
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(String(describing: error))")
+                return
+            }
+
+            /* GUARD: Did we get a successful 2XX response? */
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                sendError("Your request returned a status code other than 2xx!")
+                return
+            }
+
+            /* GUARD: Was there any data returned? */
+            guard let data = data else {
+                sendError("No data was returned by the request!")
+                return
+            }
+            
+            completion(data, nil)
+        }
         task.resume()
     }
 }

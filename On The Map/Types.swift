@@ -8,4 +8,13 @@
 
 import Foundation
 
-typealias SessionResponse = (Data?, URLResponse?, Error?) -> Void // Response from the execution of a SessionTask
+typealias SessionResponse = (Data?, Error?) -> Void // Response from the execution of a SessionTask without the URLResponse?, URL Response parsed in Client
+
+// MARK:- Convenience types for UdacityClient
+typealias UdacityUserResponse = (UdacityUser?, Error?) -> Void
+typealias UdacitySessionResponse = (String?, Error?) -> Void // String is the SessionID
+
+// MARK:- Convenience types for ParseClient
+typealias ParseStudentLocationsResponse = ([StudentLocation]?, Error?) -> Void
+typealias ParseStudentLocationResponse = (StudentLocation?, Error?) -> Void
+typealias ParsePostStudentLocationResponse = (Error?) -> Void

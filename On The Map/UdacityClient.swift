@@ -15,7 +15,26 @@ class UdacityClient: Client {
     let sessionURL = Constants.Udacity.url + Constants.Udacity.Paths.session
     let usersURL = Constants.Udacity.url + Constants.Udacity.Paths.users
     
-    func startSession(username: String? = nil, password: String? = nil, accessToken: String? = nil) {
+    func handleSession(data: Data?, completion: UdacitySessionResponse){
+        do {
+            let jsonDict = try self.JSONDeserializeObject(jsonData: data!)
+            let session = jsonDict["session"] as! Dictionary<String, AnyObject>
+            let sessionId = session["id"] as! String
+            completion(sessionId, nil)
+        } catch {
+            print(error.localizedDescription)
+            let userInfo = [NSLocalizedDescriptionKey : error.localizedDescription]
+            completion(nil, NSError(domain: "StudentCreationFromJSON", code: 1, userInfo: userInfo))
+        }
+    }
+    
+    func startSession(username: String? = nil, password: String? = nil, accessToken: String? = nil, completion: @escaping UdacitySessionResponse) {
+        
+        guard (username != nil && password != nil) || accessToken != nil else {
+            print("Need either username and password or a Facebook Access Token")
+            return
+        }
+        
         // Build the HTTP Headers
         let headers = [
             Constants.Headers.Keys.accept: Constants.Headers.Values.applicationJSON,
@@ -23,6 +42,8 @@ class UdacityClient: Client {
         ]
         
         var parameters: [String: AnyObject]
+        
+        // Decide whether this is a Facebook login or not
         
         if let accessToken = accessToken {
             // Build the URL parameters
@@ -47,43 +68,23 @@ class UdacityClient: Client {
             ]
         }
         
-        super.post(urlString: sessionURL, headers: headers, parameters: parameters as [String : AnyObject]) { data, response, error in
-            if let error = error { // Handle error…
-                print("\(error.localizedDescription)")
+        super.post(urlString: sessionURL, headers: headers, parameters: parameters as [String : AnyObject]) { data, err in
+            if let err = err { // Handle error…
+                print("\(err.localizedDescription)")
+                completion(nil, err)
                 return
             }
-            // TODO: Move into abstract client and only pass error or data to the handler
-//            func sendError(_ error: String) {
-//                print(error)
-//                let userInfo = [NSLocalizedDescriptionKey : error]
-//                completionHandlerForGET(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
-//            }
-//
-//            /* GUARD: Was there an error? */
-//            guard (error == nil) else {
-//                sendError("There was an error with your request: \(error)")
-//                return
-//            }
-//
-//            /* GUARD: Did we get a successful 2XX response? */
-//            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-//                sendError("Your request returned a status code other than 2xx!")
-//                return
-//            }
-//
-//            /* GUARD: Was there any data returned? */
-//            guard let data = data else {
-//                sendError("No data was returned by the request!")
-//                return
-//            }
             
+            // Remove the uneccessary but neccessary firt 5 characters used for security purposes
             let range = Range(5..<data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */
             print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
+            
+            self.handleSession(data: newData, completion: completion)
         }
     }
     
-    func endSession() {
+    func endSession(completion: @escaping UdacitySessionResponse) {
         // Custom Udacity client code for ending session
         let request = NSMutableURLRequest(url: URL(string: sessionURL)!)
         request.httpMethod = "DELETE"
@@ -99,25 +100,38 @@ class UdacityClient: Client {
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             if let error = error { // Handle error…
                 print("\(error.localizedDescription)")
+                completion(nil, error)
                 return
             }
             let range = Range(5..<data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */
             print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
+            self.handleSession(data: newData, completion: completion)
         }
         task.resume()
     }
     
-    func getUser(with userId: String) {
+    func getUser(with userId: String, completion: @escaping UdacityUserResponse) {
         let url = usersURL + "/\(userId)" // Append the user's ID to the URL
-        super.get(url: url, completion: { (data, response, error) in
-            if let error = error { // Handle error…
-                print("\(error.localizedDescription)")
+        super.get(url: url, completion: { data, err in
+            if let err = err { // Handle error…
+                print("\(err.localizedDescription)")
                 return
             }
             let range = Range(5..<data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */
             print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
+            
+            do {
+                let jsonDict = try self.JSONDeserializeObject(jsonData: newData!)
+                let udacityUser = UdacityUser.from(jsonDict: jsonDict)
+                completion(udacityUser, nil)
+            } catch {
+                print(error.localizedDescription)
+                let userInfo = [NSLocalizedDescriptionKey : error.localizedDescription]
+                completion(nil, NSError(domain: "StudentCreationFromJSON", code: 1, userInfo: userInfo))
+            }
+            
         })
     }
 }

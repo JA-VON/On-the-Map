@@ -23,17 +23,31 @@ class ParseClient: Client {
     
     // MARK:- Parse API Methods
     
-    func getStudentLocations() {
-        super.get(url: studentLocationURL, with: getDefaultHeaders()) { data, response, error in
-            if let error = error {
-                print("\(error.localizedDescription)")
+    func getStudentLocations(completion: @escaping ParseStudentLocationsResponse) {
+        super.get(url: studentLocationURL, with: getDefaultHeaders()) { data, err in
+            if let err = err {
+                print("\(err.localizedDescription)")
+                completion(nil, err)
                 return
             }
             print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
+            do {
+                let jsonArray = try self.JSONDeserializeArray(jsonData: data!)
+                var studentLocations = [StudentLocation]()
+                
+                for jsonDict in jsonArray {
+                    studentLocations.append(StudentLocation.from(jsonDict: jsonDict))
+                }
+                completion(studentLocations, nil)
+            } catch {
+                print(error.localizedDescription)
+                let userInfo = [NSLocalizedDescriptionKey : error.localizedDescription]
+                completion(nil, NSError(domain: "StudentCreationFromJSON", code: 1, userInfo: userInfo))
+            }
         }
     }
     
-    func getStudentLocation(with uniqueKey: String) {
+    func getStudentLocation(with uniqueKey: String, completion: @escaping ParseStudentLocationResponse) {
         // Build the Body Parameters
         let uniqueKeyDict = [
             Constants.Parse.URLParameters.uniqueKey:uniqueKey
@@ -44,16 +58,25 @@ class ParseClient: Client {
             "where": NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
         ]
         
-        super.get(url: studentLocationURL, with: getDefaultHeaders(), parameters: parameters as [String : AnyObject]) { data, response, error in
-            if let error = error {
-                print("\(error.localizedDescription)")
+        super.get(url: studentLocationURL, with: getDefaultHeaders(), parameters: parameters as [String : AnyObject]) { data, err in
+            if let err = err {
+                print("\(err.localizedDescription)")
+                completion(nil, err)
                 return
             }
             print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
+            do {
+                let jsonDict = try self.JSONDeserializeObject(jsonData: data!)
+                completion(StudentLocation.from(jsonDict: jsonDict), nil)
+            } catch {
+                print(error.localizedDescription)
+                let userInfo = [NSLocalizedDescriptionKey : error.localizedDescription]
+                completion(nil, NSError(domain: "StudentCreationFromJSON", code: 1, userInfo: userInfo))
+            }
         }
     }
     
-    func postStudentLocation(studentLocation: StudentLocation, updating: Bool = false) {
+    func postStudentLocation(studentLocation: StudentLocation, updating: Bool = false, completion: @escaping ParsePostStudentLocationResponse) {
         // Add the Content type to the Headers
         var headers = getDefaultHeaders()
         headers[Constants.Headers.Keys.contentType] = Constants.Headers.Values.applicationJSON
@@ -64,19 +87,20 @@ class ParseClient: Client {
         let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
         
         var url = studentLocationURL
-        let completion: SessionResponse = { data, response, error in
+        let requestCompletion: SessionResponse = { data, error in // First class citizen to the rescue!
             if let error = error {
                 print("\(error.localizedDescription)")
                 return
             }
             print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
+            completion(nil)
         }
         
         if updating {
             url += "/\(studentLocation.objectId!)" // Append the objectID to the URL
-            super.put(urlString: url, headers: headers, body: jsonString! as String, completion: completion)
+            super.put(urlString: url, headers: headers, body: jsonString! as String, completion: requestCompletion)
         } else {
-            super.post(urlString: url, headers: headers, body: jsonString! as String, completion: completion)
+            super.post(urlString: url, headers: headers, body: jsonString! as String, completion: requestCompletion)
         }
     }
 }

@@ -23,13 +23,6 @@ class LoginViewController: UIViewController {
         
         
     }
-    
-    @IBAction func loginClicked(_ sender: Any) {
-        udacityClient.startSession(username: "javonldavis14@gmail.com", password: "Novajj14")
-    }
-    
-    @IBAction func logoutClicked(_ sender: Any) {
-        udacityClient.endSession()
-    }
+
 }
 
