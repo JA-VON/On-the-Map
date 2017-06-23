@@ -49,15 +49,15 @@ class UdacityLoginView: UIView {
     // MARK:-  IBActions
     
     @IBAction func loginButtonClicked(_ sender: Any) {
-        delegate?.loginAttempted(with: emailTextField.text!, password: passwordTextField.text!)
+        delegate?.didAttemptLogin(with: emailTextField.text!, password: passwordTextField.text!)
         
         let udacityClient = UdacityClient.shared
-        udacityClient.startSession(completion: (delegate?.loginCompleted)!)
+        udacityClient.startSession(completion: (delegate?.didCompleteLogin)!)
         
     }
     
     @IBAction func signUpButtonClicked(_ sender: Any) {
-        delegate?.signUp?() // Sign up might not have been implemented
+        delegate?.didClickSignUp()
     }
 }
 

@@ -2,27 +2,37 @@
 //  LoginViewController.swift
 //  On The Map
 //
-//  Created by Javon Davis on 21/06/2017.
+//  Created by Javon Davis on 23/06/2017.
 //  Copyright © 2017 Javon Davis. All rights reserved.
 //
 
 import UIKit
 
 class LoginViewController: UIViewController {
-    
-    let udacityClient = UdacityClient.shared
-    
+    @IBOutlet weak var udacityLoginView: UdacityLoginView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        let parseClient = ParseClient.shared
-//        parseClient.getStudentLocations()
-//        parseClient.getStudentLocation(with: "171219548")
-//        parseClient.postStudentLocation(studentLocation: StudentLocation.dummy)
-//        parseClient.postStudentLocation(studentLocation: StudentLocation.dummy, updating: true)
-        
-        
-        
+
     }
 
 }
 
+extension LoginViewController: UdacityDelegate {
+    
+    func didAttemptLogin(with email: String, password: String) {
+        print("Email: \(email), Password: \(password)")
+    }
+    
+    func didCompleteLogin(sessionId: String?, error: Error?) {
+        if let error = error {
+            print(error.localizedDescription)
+        }
+        
+        print("Session: \(sessionId!)")
+    }
+    
+    func didClickSignUp() {
+        print("Sign up clicked")
+    }
+}

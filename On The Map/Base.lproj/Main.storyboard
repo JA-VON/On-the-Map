@@ -40,6 +40,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="udacityLoginView" destination="lxI-Og-578" id="jYs-7x-WwL"/>
                         <segue destination="Jbo-Vn-7nP" kind="show" identifier="showHome" id="tXX-tx-3QU"/>
                     </connections>
                 </viewController>
