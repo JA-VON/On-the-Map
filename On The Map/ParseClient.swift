@@ -64,7 +64,7 @@ class ParseClient: Client {
         let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
         
         var url = studentLocationURL
-        let completion: SessionResponse = { (data: Data?, response: URLResponse?, error: Error?) in
+        let completion: SessionResponse = { data, response, error in
             if let error = error {
                 print("\(error.localizedDescription)")
                 return
@@ -73,7 +73,7 @@ class ParseClient: Client {
         }
         
         if updating {
-            url += "/\(studentLocation.objectId!)"
+            url += "/\(studentLocation.objectId!)" // Append the objectID to the URL
             super.put(urlString: url, headers: headers, body: jsonString! as String, completion: completion)
         } else {
             super.post(urlString: url, headers: headers, body: jsonString! as String, completion: completion)

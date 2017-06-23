@@ -13,6 +13,7 @@ class UdacityClient: Client {
     static let shared = UdacityClient()
     
     let sessionURL = Constants.Udacity.url + Constants.Udacity.Paths.session
+    let usersURL = Constants.Udacity.url + Constants.Udacity.Paths.users
     
     func startSession(username: String? = nil, password: String? = nil, accessToken: String? = nil) {
         // Build the HTTP Headers
@@ -51,6 +52,31 @@ class UdacityClient: Client {
                 print("\(error.localizedDescription)")
                 return
             }
+            // TODO: Move into abstract client and only pass error or data to the handler
+//            func sendError(_ error: String) {
+//                print(error)
+//                let userInfo = [NSLocalizedDescriptionKey : error]
+//                completionHandlerForGET(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+//            }
+//
+//            /* GUARD: Was there an error? */
+//            guard (error == nil) else {
+//                sendError("There was an error with your request: \(error)")
+//                return
+//            }
+//
+//            /* GUARD: Did we get a successful 2XX response? */
+//            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+//                sendError("Your request returned a status code other than 2xx!")
+//                return
+//            }
+//
+//            /* GUARD: Was there any data returned? */
+//            guard let data = data else {
+//                sendError("No data was returned by the request!")
+//                return
+//            }
+            
             let range = Range(5..<data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */
             print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
@@ -58,6 +84,7 @@ class UdacityClient: Client {
     }
     
     func endSession() {
+        // Custom Udacity client code for ending session
         let request = NSMutableURLRequest(url: URL(string: sessionURL)!)
         request.httpMethod = "DELETE"
         var xsrfCookie: HTTPCookie? = nil
@@ -79,5 +106,18 @@ class UdacityClient: Client {
             print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
         }
         task.resume()
+    }
+    
+    func getUser(with userId: String) {
+        let url = usersURL + "/\(userId)" // Append the user's ID to the URL
+        super.get(url: url, completion: { (data, response, error) in
+            if let error = error { // Handle error…
+                print("\(error.localizedDescription)")
+                return
+            }
+            let range = Range(5..<data!.count)
+            let newData = data?.subdata(in: range) /* subset response data! */
+            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
+        })
     }
 }
