@@ -13,21 +13,24 @@ class StudentInformationViewController: UIViewController {
 
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var websiteTextField: UITextField!
-    
-    var delegate: AddLocationDelegate?
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        loadingIndicator.stopAnimating()
     }
 
     @IBAction func cancelButtonClicked(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func findLocationButtonClicked(_ sender: Any) {
+    @IBAction func findLocationButtonClicked(_ sender: UIButton) {
+        sender.isEnabled = false
+        loadingIndicator.startAnimating()
+        
         guard !(locationTextField.text?.isEmpty)! else {
             self.showAlert(title: "No Location", message: "Please enter a location")
+            loadingIndicator.stopAnimating()
             return
         }
         
@@ -41,6 +44,7 @@ class StudentInformationViewController: UIViewController {
                 let location = placemarks.first?.location
                 else {
                     self.showAlert(title: "No Location Found", message: "Could not find your location")
+                    self.loadingIndicator.stopAnimating()
                     return
             }
             
@@ -51,10 +55,12 @@ class StudentInformationViewController: UIViewController {
                     guard error == nil else {
                         self.showAlert(title: "Oops!", message: "Could not get user information")
                         self.performSegue(withIdentifier: "showLogin", sender: self)
+                        self.loadingIndicator.stopAnimating()
                         return
                     }
                     
                     var studentLocation = StudentLocation()
+                    studentLocation.uniqueKey = appDelegate.userId!
                     studentLocation.firstName = udacityUser?.firstName
                     studentLocation.lastName = udacityUser?.lastName
                     studentLocation.mediaURL = webURL
@@ -62,12 +68,14 @@ class StudentInformationViewController: UIViewController {
                     studentLocation.longitude = Float(location.coordinate.longitude)
                     studentLocation.mapString = locationString
                     
-                    self.delegate?.setNewLocation(location: studentLocation)
+                    self.loadingIndicator.stopAnimating()
+                    appDelegate.newLocation = studentLocation
                     self.dismiss(animated: true, completion: nil)
                 })
             } else {
                 self.showAlert(title: "Oops!", message: "No user id found, please log in")
                 self.performSegue(withIdentifier: "showLogin", sender: self)
+                self.loadingIndicator.stopAnimating()
                 return
             }
             

@@ -16,14 +16,65 @@ class StudentListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    func refresh() {
-        loadStudentLocations(completion: self.tableView.reloadData)
-    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if let newLocation = appDelegate.newLocation { // Add a new location for a Student
+            confirmNewLocation(location: newLocation)
+            appDelegate.newLocation = nil
+        }
         refresh()
+    }
+    
+    func saveToParse(location: StudentLocation) {
+        ParseClient.shared.postStudentLocation(studentLocation: location, updating: locationExistsForCurrentUser(), completion: { error in
+            if let error = error {
+                print(error.localizedDescription)
+                self.showAlert(title: "Oops!", message: "There was an error saving your location to the database")
+                self.refresh()
+                return
+            }
+            self.appDelegate.userLocation = location
+        })
+    }
+    
+    func confirm(studentLocation: StudentLocation) {
+        var message = "Do you want to save this location"
+        var location = studentLocation // StudentLocation is a struct
+        
+        if locationExistsForCurrentUser() {
+            message = "Do you want to Overwrite your existing location at \(appDelegate.userLocation!.mapString!)?"
+            
+            location.objectId = appDelegate.userLocation?.objectId!
+        }
+        
+        let alertController = UIAlertController(title: "Confirm Location", message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.saveToParse(location: location)
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
+            self.appDelegate.studentLocations.removeFirst()
+        })
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func confirmNewLocation(location: StudentLocation) {
+        appDelegate.studentLocations.insert(location, at: 0)
+        refresh()
+        confirm(studentLocation: location)
+    }
+    
+    // MARK:- IBActions
+    
+    @IBAction func refresh() {
+        loadStudentLocations(completion: self.tableView.reloadData)
+    }
+    
+    @IBAction func addButtonClicked(_ sender: Any) {
+        self.performSegue(withIdentifier: "showStudentInformation", sender: self)
     }
     
     @IBAction func logoutButtonClicked(_ sender: Any) {
@@ -40,8 +91,8 @@ class StudentListTableViewController: UITableViewController {
         
         LoginManager().logOut()
     }
-    
 }
+
 
 // MARK:- TableView DataSource
 extension StudentListTableViewController { // Datasource Functions

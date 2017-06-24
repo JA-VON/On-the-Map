@@ -161,6 +161,10 @@
                                     <action selector="findLocationButtonClicked:" destination="vyb-QS-EWi" eventType="touchUpInside" id="I2M-DP-YPB"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Qvh-CY-WZi">
+                                <rect key="frame" x="197" y="386" width="20" height="20"/>
+                                <color key="color" red="0.0" green="0.70196078429999997" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -170,6 +174,7 @@
                             <constraint firstItem="6p5-e4-K7i" firstAttribute="leading" secondItem="ZvA-Ug-fPu" secondAttribute="leading" id="G8O-42-Jbz"/>
                             <constraint firstItem="ELz-c2-zrn" firstAttribute="leading" secondItem="ZvA-Ug-fPu" secondAttribute="leadingMargin" id="Ikd-To-SeM"/>
                             <constraint firstItem="6p5-e4-K7i" firstAttribute="top" secondItem="oms-Ha-aF7" secondAttribute="bottom" constant="8" id="LZr-Ck-qfZ"/>
+                            <constraint firstItem="Qvh-CY-WZi" firstAttribute="top" secondItem="Xnm-cW-v5Y" secondAttribute="bottom" constant="8" id="RgK-ZH-dod"/>
                             <constraint firstItem="hVv-CD-SDh" firstAttribute="trailing" secondItem="ZvA-Ug-fPu" secondAttribute="trailingMargin" id="Ubl-Us-mj1"/>
                             <constraint firstItem="Xnm-cW-v5Y" firstAttribute="height" secondItem="hVv-CD-SDh" secondAttribute="height" id="aOw-IZ-pWo"/>
                             <constraint firstItem="BTN-W3-TzL" firstAttribute="top" secondItem="6p5-e4-K7i" secondAttribute="bottom" constant="32" id="agu-Zr-tK2"/>
@@ -177,12 +182,14 @@
                             <constraint firstItem="hVv-CD-SDh" firstAttribute="leading" secondItem="ZvA-Ug-fPu" secondAttribute="leadingMargin" id="dCe-TD-cWi"/>
                             <constraint firstItem="ELz-c2-zrn" firstAttribute="height" secondItem="hVv-CD-SDh" secondAttribute="height" id="fZw-yf-G4h"/>
                             <constraint firstItem="BTN-W3-TzL" firstAttribute="centerX" secondItem="ZvA-Ug-fPu" secondAttribute="centerX" id="ofK-Ym-lH2"/>
+                            <constraint firstItem="Qvh-CY-WZi" firstAttribute="centerX" secondItem="Xnm-cW-v5Y" secondAttribute="centerX" id="pKT-iT-XUz"/>
                             <constraint firstItem="ELz-c2-zrn" firstAttribute="top" secondItem="hVv-CD-SDh" secondAttribute="bottom" constant="8" id="qIg-k2-P2y"/>
                             <constraint firstItem="hVv-CD-SDh" firstAttribute="top" secondItem="BTN-W3-TzL" secondAttribute="bottom" constant="8" id="vzn-SL-ygn"/>
                             <constraint firstItem="ELz-c2-zrn" firstAttribute="trailing" secondItem="ZvA-Ug-fPu" secondAttribute="trailingMargin" id="yAH-lY-7BC"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loadingIndicator" destination="Qvh-CY-WZi" id="SSg-3N-PaP"/>
                         <outlet property="locationTextField" destination="hVv-CD-SDh" id="dci-wn-ld5"/>
                         <outlet property="websiteTextField" destination="ELz-c2-zrn" id="0UF-y3-dEv"/>
                         <segue destination="LpH-R2-6op" kind="show" identifier="showLogin" id="L1d-Je-txK"/>
@@ -234,6 +241,18 @@
                                 <action selector="logoutButtonClicked:" destination="LNR-ul-dGX" id="0Mf-OB-bAo"/>
                             </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="tPU-OS-yLD">
+                                <connections>
+                                    <action selector="addButtonClicked:" destination="LNR-ul-dGX" id="L6D-ed-Nbe"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="refresh" id="gUB-1a-vtR">
+                                <connections>
+                                    <action selector="refresh" destination="LNR-ul-dGX" id="VJp-rm-2hO"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <segue destination="LpH-R2-6op" kind="show" identifier="showLogin" id="PBg-dV-e3k"/>
@@ -328,7 +347,7 @@
         <image name="World Icon" width="52" height="67"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LY4-I6-QTo"/>
-        <segue reference="woS-Cb-2FQ"/>
+        <segue reference="L1d-Je-txK"/>
+        <segue reference="a8c-2y-JSH"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -10,16 +10,11 @@ import UIKit
 import MapKit
 import FacebookLogin
 
-protocol AddLocationDelegate {
-    func setNewLocation(location: StudentLocation)
-}
-
 class StudentMapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
 
     var studentLocations = [StudentLocation]()
     var annotations = [MKPointAnnotation]()
-    var newLocation: StudentLocation?
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -56,11 +51,6 @@ class StudentMapViewController: UIViewController {
         self.mapView.addAnnotations(annotations)
     }
     
-    @IBAction func refresh() {
-        loadStudentLocations(completion: updateMap)
-        
-    }
-    
     func focus(location: StudentLocation) {
         let latitude = CLLocationDegrees(location.latitude)
         let longitude = CLLocationDegrees(location.longitude)
@@ -72,10 +62,33 @@ class StudentMapViewController: UIViewController {
         self.mapView.setRegion(region, animated: true)
     }
     
-    func confirm(annotation: MKPointAnnotation) {
-        let alertController = UIAlertController(title: "Confirm Location", message: "Save this location", preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: { alert in
+    func saveToParse(location: StudentLocation, annotation: MKPointAnnotation) {
+        ParseClient.shared.postStudentLocation(studentLocation: location, updating: locationExistsForCurrentUser(), completion: { error in
+            if let error = error {
+                print(error.localizedDescription)
+                self.showAlert(title: "Oops!", message: "There was an error saving your location to the database")
+                self.refresh()
+                return
+            }
+            self.appDelegate.userLocation = location
+        })
+    }
+    
+    func confirm(studentLocation: StudentLocation, annotation: MKPointAnnotation) {
+        var message = "Do you want to save this location"
+        var location = studentLocation // StudentLocation is a struct
+        
+        if locationExistsForCurrentUser() {
+            message = "Do you want to Overwrite your existing location at \(appDelegate.userLocation!.mapString!)?"
+            
+            location.objectId = appDelegate.userLocation?.objectId!
+        }
+        
+        let alertController = UIAlertController(title: "Confirm Location", message: message, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.saveToParse(location: location, annotation: annotation)
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
             self.mapView.removeAnnotation(annotation)
         })
         
@@ -88,9 +101,10 @@ class StudentMapViewController: UIViewController {
         let annotation = getAnnotation(studentLocation: location)
         self.mapView.addAnnotation(annotation)
         focus(location: location)
-        confirm(annotation: annotation)
+        confirm(studentLocation: location, annotation: annotation)
     }
     
+    // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,11 +113,14 @@ class StudentMapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let newLocation = newLocation { // Add a new location for a Student
+        if let newLocation = appDelegate.newLocation { // Add a new location for a Student
             confirmNewLocation(location: newLocation)
+            appDelegate.newLocation = nil
         }
         refresh()
     }
+    
+    // MARK:- IBActions
     
     @IBAction func logoutClicked(_ sender: Any) {
         UdacityClient.shared.endSession(completion: { sessionId, userId, error in
@@ -119,22 +136,13 @@ class StudentMapViewController: UIViewController {
         LoginManager().logOut()
     }
 
+    @IBAction func refresh() {
+        loadStudentLocations(completion: updateMap)
+        
+    }
+    
     @IBAction func addButtonClicked(_ sender: Any) {
         self.performSegue(withIdentifier: "showStudentInformation", sender: self)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showStudentInformation" {
-            let destinationVc = segue.destination as! StudentInformationViewController
-            destinationVc.delegate = self
-        }
-    }
-}
 
-extension StudentMapViewController: AddLocationDelegate {
-    
-    func setNewLocation(location: StudentLocation) {
-        self.newLocation = location
-    }
-    
 }

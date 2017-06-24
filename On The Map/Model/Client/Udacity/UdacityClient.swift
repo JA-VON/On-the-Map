@@ -21,11 +21,11 @@ class UdacityClient: Client {
             var userId: String?
             if let account = jsonDict["account"] as? Dictionary<String, AnyObject>
             {
-                userId = account["key"] as! String
+                userId = getSafeString(value: account["key"])
             }
             
             let session = jsonDict["session"] as! Dictionary<String, AnyObject>
-            let sessionId = session["id"] as! String
+            let sessionId = getSafeString(value: session["id"])
             completion(sessionId, userId, nil)
         } catch {
             print(error.localizedDescription)

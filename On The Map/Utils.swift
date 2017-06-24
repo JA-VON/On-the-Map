@@ -32,3 +32,8 @@ func getSafeString(value: AnyObject?) -> String {
 func getSafeFloat(value: AnyObject?) -> Float {
     return value as? Float ?? 0
 }
+
+let locationExistsForCurrentUser = { () -> Bool in 
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    return appDelegate.userLocation != nil
+}

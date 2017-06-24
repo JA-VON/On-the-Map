@@ -13,8 +13,12 @@ import FacebookCore
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
     var studentLocations = [StudentLocation]()
-    var userId: String?
+    var userId: String? // ID of the Current User
+    var userLocation: StudentLocation? // Location of the Current User
+    
+    var newLocation: StudentLocation? // Used when a new location is being posted
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

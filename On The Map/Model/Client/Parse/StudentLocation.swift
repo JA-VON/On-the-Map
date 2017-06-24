@@ -11,6 +11,7 @@ import Foundation
 struct StudentLocation {
     
     // MARK: - Properties
+    
     var objectId: String!
     var uniqueKey: String!
     var firstName: String!

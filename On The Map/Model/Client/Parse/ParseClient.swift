@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ParseClient: Client {
     
@@ -31,13 +32,18 @@ class ParseClient: Client {
                 return
             }
             print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
             do {
                 let jsonDict = try self.JSONDeserialize(jsonData: data!)
                 let jsonArray = jsonDict["results"] as! [Dictionary<String, AnyObject>]
                 var studentLocations = [StudentLocation]()
                 
                 for studentDict in jsonArray {
-                    studentLocations.append(StudentLocation.from(jsonDict: studentDict))
+                    let studentLocation = StudentLocation.from(jsonDict: studentDict)
+                    if studentLocation.uniqueKey! == appDelegate.userId! {
+                        appDelegate.userLocation = studentLocation
+                    }
+                    studentLocations.append(studentLocation)
                 }
                 completion(studentLocations, nil)
             } catch {
@@ -91,6 +97,7 @@ class ParseClient: Client {
         let requestCompletion: SessionResponse = { data, error in // First class citizen to the rescue!
             if let error = error {
                 print("\(error.localizedDescription)")
+                completion(error)
                 return
             }
             print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
