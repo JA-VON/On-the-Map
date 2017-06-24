@@ -61,11 +61,17 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="425-Tv-PfW">
                                 <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                             </mapView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="46g-bE-4CH">
+                                <rect key="frame" x="189" y="350" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.70196078429999997" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="425-Tv-PfW" secondAttribute="trailing" id="6du-Dr-uQe"/>
                             <constraint firstItem="425-Tv-PfW" firstAttribute="top" secondItem="lQj-xZ-s4Z" secondAttribute="bottom" id="8Dt-bI-8oa"/>
+                            <constraint firstItem="46g-bE-4CH" firstAttribute="centerY" secondItem="s3j-Sk-soQ" secondAttribute="centerY" id="Hrc-Fx-eBz"/>
+                            <constraint firstItem="46g-bE-4CH" firstAttribute="centerX" secondItem="s3j-Sk-soQ" secondAttribute="centerX" id="P5Q-0h-ROC"/>
                             <constraint firstItem="425-Tv-PfW" firstAttribute="leading" secondItem="s3j-Sk-soQ" secondAttribute="leading" id="ZGC-0s-cDf"/>
                             <constraint firstItem="Hfg-dg-KHJ" firstAttribute="top" secondItem="425-Tv-PfW" secondAttribute="bottom" id="ksi-kW-6jC"/>
                         </constraints>
@@ -90,6 +96,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="loadingIndicator" destination="46g-bE-4CH" id="0Lz-Xu-sYF"/>
                         <outlet property="mapView" destination="425-Tv-PfW" id="fch-EX-a3h"/>
                         <segue destination="vyb-QS-EWi" kind="presentation" identifier="showStudentInformation" id="woS-Cb-2FQ"/>
                         <segue destination="LpH-R2-6op" kind="show" identifier="showLogin" id="LY4-I6-QTo"/>
@@ -347,7 +354,7 @@
         <image name="World Icon" width="52" height="67"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L1d-Je-txK"/>
-        <segue reference="a8c-2y-JSH"/>
+        <segue reference="LY4-I6-QTo"/>
+        <segue reference="woS-Cb-2FQ"/>
     </inferredMetricsTieBreakers>
 </document>

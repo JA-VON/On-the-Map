@@ -12,6 +12,7 @@ import FacebookLogin
 
 class StudentMapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
 
     var studentLocations = [StudentLocation]()
     var annotations = [MKPointAnnotation]()
@@ -41,6 +42,7 @@ class StudentMapViewController: UIViewController {
     }
     
     func updateMap() {
+        loadingIndicator.stopAnimating()
         self.mapView.removeAnnotations(annotations)
         annotations = [MKPointAnnotation]()
         for studentLocation in self.appDelegate.studentLocations {
@@ -108,7 +110,11 @@ class StudentMapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup the view
         mapView.delegate = self
+        loadingIndicator.stopAnimating()
+        refresh()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,13 +122,15 @@ class StudentMapViewController: UIViewController {
         if let newLocation = appDelegate.newLocation { // Add a new location for a Student
             confirmNewLocation(location: newLocation)
             appDelegate.newLocation = nil
+            refresh()
         }
-        refresh()
+
     }
     
     // MARK:- IBActions
     
     @IBAction func logoutClicked(_ sender: Any) {
+        loadingIndicator.startAnimating()
         UdacityClient.shared.endSession(completion: { sessionId, userId, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -130,6 +138,7 @@ class StudentMapViewController: UIViewController {
                 print(sessionId!)
             }
             performUIUpdatesOnMain {
+                 self.loadingIndicator.stopAnimating()
                  self.performSegue(withIdentifier: "showLogin", sender: self)
             }
         })
@@ -137,6 +146,7 @@ class StudentMapViewController: UIViewController {
     }
 
     @IBAction func refresh() {
+        loadingIndicator.startAnimating()
         loadStudentLocations(completion: updateMap)
         
     }

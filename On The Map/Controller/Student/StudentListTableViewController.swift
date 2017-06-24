@@ -13,8 +13,14 @@ class StudentListTableViewController: UITableViewController {
 
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    var loadingIndicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupLoadingIndicator()
+        loadingIndicator.stopAnimating()
+        refresh()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -22,8 +28,17 @@ class StudentListTableViewController: UITableViewController {
         if let newLocation = appDelegate.newLocation { // Add a new location for a Student
             confirmNewLocation(location: newLocation)
             appDelegate.newLocation = nil
+            refresh()
         }
-        refresh()
+    }
+    
+    func setupLoadingIndicator() {
+        loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        loadingIndicator.activityIndicatorViewStyle = .whiteLarge
+        loadingIndicator.color = .blue
+        loadingIndicator.center = self.view.center
+        loadingIndicator.hidesWhenStopped = true
+        self.view.addSubview(loadingIndicator)
     }
     
     func saveToParse(location: StudentLocation) {
@@ -70,7 +85,11 @@ class StudentListTableViewController: UITableViewController {
     // MARK:- IBActions
     
     @IBAction func refresh() {
-        loadStudentLocations(completion: self.tableView.reloadData)
+        loadingIndicator.startAnimating()
+        loadStudentLocations(completion:{
+            self.tableView.reloadData()
+            self.loadingIndicator.stopAnimating()
+        })
     }
     
     @IBAction func addButtonClicked(_ sender: Any) {
@@ -78,6 +97,7 @@ class StudentListTableViewController: UITableViewController {
     }
     
     @IBAction func logoutButtonClicked(_ sender: Any) {
+        loadingIndicator.startAnimating()
         UdacityClient.shared.endSession(completion: { sessionId, userId, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -85,6 +105,7 @@ class StudentListTableViewController: UITableViewController {
                 print(sessionId!)
             }
             performUIUpdatesOnMain {
+                self.loadingIndicator.stopAnimating()
                 self.performSegue(withIdentifier: "showLogin", sender: self)
             }
         })
