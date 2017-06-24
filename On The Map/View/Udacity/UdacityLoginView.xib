@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UdacityLoginView" customModule="On_The_Map" customModuleProvider="target">
             <connections>
+                <outlet property="containerStackView" destination="f1r-g3-2Yr" id="8tN-lX-mRe"/>
                 <outlet property="emailTextField" destination="jZd-PQ-aAj" id="ZS5-9y-3VW"/>
                 <outlet property="errorLabel" destination="YFH-4r-bFi" id="4i0-cN-MHv"/>
                 <outlet property="loadingIndicator" destination="eRH-Bt-R60" id="pgU-fC-aFo"/>

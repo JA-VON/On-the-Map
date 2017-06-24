@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FacebookLogin
 
 class StudentListTableViewController: UITableViewController {
 
@@ -36,6 +37,8 @@ class StudentListTableViewController: UITableViewController {
                 self.performSegue(withIdentifier: "showLogin", sender: self)
             }
         })
+        
+        LoginManager().logOut()
     }
     
 }

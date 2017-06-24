@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LpH-R2-6op">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -24,22 +24,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxI-Og-578" customClass="UdacityLoginView" customModule="On_The_Map" customModuleProvider="target">
-                                <rect key="frame" x="20" y="96" width="374" height="300"/>
+                                <rect key="frame" x="20" y="52" width="374" height="684"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="CbL-ef-r2d">
-                                        <variation key="heightClass=compact" constant="200"/>
-                                    </constraint>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="lxI-Og-578" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="DbY-5u-Olz"/>
                             <constraint firstItem="lxI-Og-578" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="32" id="NH1-DH-NDj"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="lxI-Og-578" secondAttribute="bottom" id="YcC-nK-xUb"/>
                             <constraint firstItem="lxI-Og-578" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="cIT-0d-ZeP"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="YwE-03-y0T"/>
                     <connections>
                         <outlet property="udacityLoginView" destination="lxI-Og-578" id="jYs-7x-WwL"/>
                         <segue destination="Jbo-Vn-7nP" kind="show" identifier="showHome" id="tXX-tx-3QU"/>
@@ -47,7 +44,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="120.8" y="133.5832083958021"/>
+            <point key="canvasLocation" x="1027.536231884058" y="132.88043478260872"/>
         </scene>
         <!--StudentMapViewController-->
         <scene sceneID="PpZ-rT-5EL">
@@ -87,7 +84,7 @@
                             </barButtonItem>
                             <barButtonItem systemItem="refresh" id="GB6-p8-mtd">
                                 <connections>
-                                    <action selector="refreshButtonClicked:" destination="rAA-vg-uyf" id="UeO-sR-NpW"/>
+                                    <action selector="refresh" destination="rAA-vg-uyf" id="vlh-KH-Mdt"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -95,12 +92,12 @@
                     <connections>
                         <outlet property="mapView" destination="425-Tv-PfW" id="fch-EX-a3h"/>
                         <segue destination="vyb-QS-EWi" kind="presentation" identifier="showStudentInformation" id="woS-Cb-2FQ"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="showLogin" id="LY4-I6-QTo"/>
+                        <segue destination="LpH-R2-6op" kind="show" identifier="showLogin" id="LY4-I6-QTo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7hA-VV-AJh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3136.2318840579715" y="-268.20652173913044"/>
+            <point key="canvasLocation" x="4043.4782608695655" y="-268.20652173913044"/>
         </scene>
         <!--StudentInformationViewController-->
         <scene sceneID="gvL-ON-eXP">
@@ -188,12 +185,12 @@
                     <connections>
                         <outlet property="locationTextField" destination="hVv-CD-SDh" id="dci-wn-ld5"/>
                         <outlet property="websiteTextField" destination="ELz-c2-zrn" id="0UF-y3-dEv"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="showLogin" id="L1d-Je-txK"/>
+                        <segue destination="LpH-R2-6op" kind="show" identifier="showLogin" id="L1d-Je-txK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tab-UZ-U9D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4055.1999999999998" y="-264.01799100449779"/>
+            <point key="canvasLocation" x="4962.3188405797109" y="-264.13043478260869"/>
         </scene>
         <!--StudentListTableViewController-->
         <scene sceneID="qdG-jK-lQh">
@@ -208,11 +205,11 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iuI-qF-dQd" id="Pd7-aP-jvv">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uj5-Me-4Rk">
-                                            <rect key="frame" x="54" y="0.0" width="345" height="43.666666666666664"/>
+                                            <rect key="frame" x="54" y="0.0" width="345" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -239,13 +236,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="showLogin" id="PBg-dV-e3k"/>
+                        <segue destination="LpH-R2-6op" kind="show" identifier="showLogin" id="PBg-dV-e3k"/>
                         <segue destination="vyb-QS-EWi" kind="presentation" identifier="showStudentInformation" id="a8c-2y-JSH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LUV-Ak-smH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3136.8000000000002" y="506.89655172413796"/>
+            <point key="canvasLocation" x="4043.4782608695655" y="506.25000000000006"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="mbh-a8-zTK">
@@ -263,7 +260,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bpt-em-5XX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1084" y="134"/>
+            <point key="canvasLocation" x="1989.8550724637682" y="133.69565217391306"/>
         </scene>
         <!--Map-->
         <scene sceneID="6Gt-xf-xyy">
@@ -282,7 +279,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1lL-Tk-08W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2197.5999999999999" y="-267.61619190404798"/>
+            <point key="canvasLocation" x="3104.347826086957" y="-268.20652173913044"/>
         </scene>
         <!--List-->
         <scene sceneID="Z5F-M0-Cex">
@@ -301,7 +298,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZz-L2-Sr0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2197.5999999999999" y="506.89655172413796"/>
+            <point key="canvasLocation" x="3104.347826086957" y="506.25000000000006"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3i6-5N-Fy5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="LpH-R2-6op" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qvu-Zj-BXN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="wTP-4c-Yb0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wU8-WK-xkU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="120.28985507246378" y="132.88043478260872"/>
         </scene>
     </scenes>
     <resources>

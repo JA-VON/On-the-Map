@@ -24,3 +24,11 @@ func loadStudentLocations(completion: @escaping ()->()) {
         }
     })
 }
+
+func getSafeString(value: AnyObject?) -> String {
+    return value as? String ?? ""
+}
+
+func getSafeFloat(value: AnyObject?) -> Float {
+    return value as? Float ?? 0
+}

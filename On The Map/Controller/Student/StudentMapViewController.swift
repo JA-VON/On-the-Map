@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import FacebookLogin
 
 protocol AddLocationDelegate {
     func setNewLocation(location: StudentLocation)
@@ -55,7 +56,7 @@ class StudentMapViewController: UIViewController {
         self.mapView.addAnnotations(annotations)
     }
     
-    func refresh() {
+    @IBAction func refresh() {
         loadStudentLocations(completion: updateMap)
         
     }
@@ -115,14 +116,11 @@ class StudentMapViewController: UIViewController {
                  self.performSegue(withIdentifier: "showLogin", sender: self)
             }
         })
+        LoginManager().logOut()
     }
 
     @IBAction func addButtonClicked(_ sender: Any) {
         self.performSegue(withIdentifier: "showStudentInformation", sender: self)
-    }
-    
-    @IBAction func refreshButtonClicked(_ sender: Any) {
-        refresh()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

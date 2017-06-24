@@ -19,11 +19,9 @@ class LoginViewController: UIViewController {
         
         // Add Facebook Login Button
         let loginButton = LoginButton(readPermissions: [.publicProfile])
-        udacityLoginView.addSubview(loginButton)
-        
+        loginButton.delegate = self
+        udacityLoginView.addView(view: loginButton)
     }
-    
-
 }
 
 extension LoginViewController: UdacityDelegate {

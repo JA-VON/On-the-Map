@@ -39,14 +39,14 @@ struct StudentLocation {
     static func from(jsonDict: Dictionary<String, AnyObject>) -> StudentLocation {
         var studentLocation = StudentLocation()
         
-        studentLocation.objectId = jsonDict["objectId"] as! String
-        studentLocation.uniqueKey = jsonDict["uniqueKey"] as! String
-        studentLocation.firstName = jsonDict["firstName"] as! String
-        studentLocation.lastName = jsonDict["lastName"] as! String
-        studentLocation.mapString = jsonDict["mapString"] as? String ?? ""
-        studentLocation.mediaURL = jsonDict["mediaURL"] as? String ?? ""
-        studentLocation.latitude = jsonDict["latitude"] as! Float
-        studentLocation.longitude = jsonDict["longitude"] as! Float
+        studentLocation.objectId = getSafeString(value: jsonDict["objectId"])
+        studentLocation.uniqueKey = getSafeString(value: jsonDict["uniqueKey"])
+        studentLocation.firstName = getSafeString(value: jsonDict["firstName"])
+        studentLocation.lastName = getSafeString(value: jsonDict["lastName"])
+        studentLocation.mapString = getSafeString(value: jsonDict["mapString"])
+        studentLocation.mediaURL = getSafeString(value: jsonDict["mediaURL"])
+        studentLocation.latitude = getSafeFloat(value: jsonDict["latitude"])
+        studentLocation.longitude = getSafeFloat(value: jsonDict["longitude"])
         return studentLocation
     }
     

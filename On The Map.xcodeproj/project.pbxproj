@@ -110,8 +110,8 @@
 			children = (
 				8A50DCFF1EFCEFA000213DE5 /* StudentInformationViewController.swift */,
 				8A50DCFD1EFCEF7200213DE5 /* StudentListTableViewController.swift */,
-				8A358BCB1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift */,
 				8A50DCFB1EFCEF5500213DE5 /* StudentMapViewController.swift */,
+				8A358BCB1EFD836000270841 /* StudentMapViewController+MapKitDelegate.swift */,
 			);
 			path = Student;
 			sourceTree = "<group>";

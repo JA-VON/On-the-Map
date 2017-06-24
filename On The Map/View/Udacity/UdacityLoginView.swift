@@ -17,6 +17,7 @@ class UdacityLoginView: UIView {
     weak var delegate: UdacityDelegate? // Not completely sure why this needs to be weak, why do we not want it to be retained? TODO: Google more
     
     // MARK:- IBOutlets
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
@@ -24,6 +25,7 @@ class UdacityLoginView: UIView {
     @IBOutlet weak var noAccountLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var containerStackView: UIStackView!
     
     enum ViewState{ case idle, logginIn }
     
@@ -52,8 +54,26 @@ class UdacityLoginView: UIView {
         self.view.prepareForInterfaceBuilder()
     }
     
-    // TODO: Function for allowing Login with accessToken
+    // MARK:- Utils
     
+    func loginWithAccessToken(accessToken: String) {
+        self.changeViewState(state: .logginIn)
+        delegate?.didAttemptLoginWithAccessToken?(accessToken: accessToken)
+        
+        let udacityClient = UdacityClient.shared
+        udacityClient.startSession(accessToken: accessToken, completion: { sessionId, userId, error in
+            
+            performUIUpdatesOnMain {
+                self.changeViewState(state: .idle)
+                self.delegate?.didCompleteLogin(sessionId: sessionId, userId: userId, error: error)
+            }
+            
+        })
+    }
+    
+    func addView(view: UIView) {
+        self.containerStackView.addArrangedSubview(view)
+    }
     func setUserInteraction(enabled: Bool) {
         self.isUserInteractionEnabled = enabled
     }

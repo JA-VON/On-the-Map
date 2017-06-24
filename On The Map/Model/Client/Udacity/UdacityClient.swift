@@ -18,8 +18,11 @@ class UdacityClient: Client {
     func handleSession(data: Data?, completion: UdacitySessionResponse){
         do {
             let jsonDict = try self.JSONDeserialize(jsonData: data!)
-            let account = jsonDict["account"] as! Dictionary<String, AnyObject>
-            let userId = account["key"] as! String
+            var userId: String?
+            if let account = jsonDict["account"] as? Dictionary<String, AnyObject>
+            {
+                userId = account["key"] as! String
+            }
             
             let session = jsonDict["session"] as! Dictionary<String, AnyObject>
             let sessionId = session["id"] as! String

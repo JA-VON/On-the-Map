@@ -8,10 +8,14 @@
 
 import Foundation
 import FacebookLogin
+import FacebookCore
 
 extension LoginViewController: LoginButtonDelegate {
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         print(" Facebook Login Complete")
+        if let accessToken = AccessToken.current {
+            udacityLoginView.loginWithAccessToken(accessToken: accessToken.authenticationToken)
+        }
     }
     
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
