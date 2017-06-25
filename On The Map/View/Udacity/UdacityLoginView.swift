@@ -109,6 +109,8 @@ class UdacityLoginView: UIView {
         self.changeViewState(state: .logginIn)
         
         delegate?.didAttemptLogin(with: username, password: password)
+        self.emailTextField.text = ""
+        self.passwordTextField.text = ""
         
         let udacityClient = UdacityClient.shared
         udacityClient.startSession(username: username, password: password, completion: { sessionId, userId, error in
