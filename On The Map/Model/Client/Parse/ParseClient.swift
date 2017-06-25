@@ -98,7 +98,7 @@ class ParseClient: Client {
         let jsonData = try! JSONSerialize(jsonObject: studentLocationDict)
         let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
         
-        var url = studentLocationURL
+        var url = Constants.Parse.url + Constants.Parse.Paths.studentLocation
         let requestCompletion: SessionResponse = { data, error in // First class citizen to the rescue!
             if let error = error {
                 print("\(error.localizedDescription)")
@@ -108,9 +108,9 @@ class ParseClient: Client {
             print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
             completion(nil)
         }
-        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if updating {
-            url += "/\(studentLocation.objectId!)" // Append the objectID to the URL
+            url += "/\(appDelegate.userLocation!.objectId!)" // Append the objectID to the URL
             super.put(urlString: url, headers: headers, body: jsonString! as String, completion: requestCompletion)
         } else {
             super.post(urlString: url, headers: headers, body: jsonString! as String, completion: requestCompletion)

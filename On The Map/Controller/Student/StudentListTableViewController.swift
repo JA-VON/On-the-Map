@@ -14,6 +14,7 @@ class StudentListTableViewController: UITableViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var loadingIndicator = UIActivityIndicatorView()
+    var switchingTabs = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +26,7 @@ class StudentListTableViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let newLocation = appDelegate.newLocation { // Add a new location for a Student
-            confirmNewLocation(location: newLocation)
-            appDelegate.newLocation = nil
+        if !switchingTabs {
             refresh()
         }
     }
@@ -98,7 +97,25 @@ class StudentListTableViewController: UITableViewController {
     }
     
     @IBAction func addButtonClicked(_ sender: Any) {
-        performSegue(withIdentifier: "showStudentInformation", sender: self)
+        if locationExistsForCurrentUser() {
+            let message = "Do you want to overwrite your existing location at \(appDelegate.userLocation!.mapString!)?"
+            
+            let alertController = UIAlertController(title: "Careful", message: message, preferredStyle: .actionSheet)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+                self.switchingTabs = false
+                self.performSegue(withIdentifier: "showStudentInformation", sender: self)
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+            
+            alertController.addAction(okAction)
+            alertController.addAction(cancelAction)
+            
+            present(alertController, animated: true, completion: nil)
+        } else {
+            switchingTabs = false
+            self.performSegue(withIdentifier: "showStudentInformation", sender: self)
+        }
     }
     
     @IBAction func logoutButtonClicked(_ sender: Any) {
@@ -137,7 +154,7 @@ extension StudentListTableViewController { // Datasource Functions
         
         let studentLocation = StudentLocation.studentLocations[indexPath.row]
         cell.textLabel?.text = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
-        
+        cell.detailTextLabel?.text = studentLocation.mediaURL
         return cell
     }
 }
@@ -151,5 +168,6 @@ extension StudentListTableViewController {
         if let toOpen = studentLocation.mediaURL {
             app.open(URL(string: toOpen)!)
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

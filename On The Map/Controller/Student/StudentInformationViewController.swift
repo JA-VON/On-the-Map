@@ -31,6 +31,7 @@ class StudentInformationViewController: UIViewController {
         guard !(locationTextField.text?.isEmpty)! else {
             self.showAlert(title: "No Location", message: "Please enter a location")
             loadingIndicator.stopAnimating()
+            sender.isEnabled = true
             return
         }
         
@@ -45,6 +46,7 @@ class StudentInformationViewController: UIViewController {
                 else {
                     self.showAlert(title: "No Location Found", message: "Could not find your location")
                     self.loadingIndicator.stopAnimating()
+                    sender.isEnabled = true
                     return
             }
             
@@ -52,34 +54,48 @@ class StudentInformationViewController: UIViewController {
             
             if let userId = appDelegate.userId {
                 UdacityClient.shared.getUser(with: userId, completion: { udacityUser, error in
-                    guard error == nil else {
-                        self.showAlert(title: "Oops!", message: "Could not get user information")
-                        self.performSegue(withIdentifier: "showLogin", sender: self)
+                    performUIUpdatesOnMain {
+                        guard error == nil else {
+                            self.showAlert(title: "Oops!", message: "Could not get user information")
+                            self.performSegue(withIdentifier: "showLogin", sender: self)
+                            self.loadingIndicator.stopAnimating()
+                            sender.isEnabled = true
+                            return
+                        }
+                        
+                        var studentLocation = StudentLocation()
+                        
+                        studentLocation.uniqueKey = appDelegate.userId!
+                        studentLocation.firstName = udacityUser?.firstName
+                        studentLocation.lastName = udacityUser?.lastName
+                        studentLocation.mediaURL = webURL
+                        studentLocation.latitude = Float(location.coordinate.latitude)
+                        studentLocation.longitude = Float(location.coordinate.longitude)
+                        studentLocation.mapString = locationString
+                        
+                        sender.isEnabled = true
                         self.loadingIndicator.stopAnimating()
-                        return
+                        let confirmPostingViewController = self.storyboard?.instantiateViewController(withIdentifier: "ConfirmPostingViewController") as! ConfirmPostingViewController
+                        confirmPostingViewController.studentLocation = studentLocation
+                        self.navigationController?.pushViewController(confirmPostingViewController, animated: true)
                     }
-                    
-                    var studentLocation = StudentLocation()
-                    studentLocation.uniqueKey = appDelegate.userId!
-                    studentLocation.firstName = udacityUser?.firstName
-                    studentLocation.lastName = udacityUser?.lastName
-                    studentLocation.mediaURL = webURL
-                    studentLocation.latitude = Float(location.coordinate.latitude)
-                    studentLocation.longitude = Float(location.coordinate.longitude)
-                    studentLocation.mapString = locationString
-                    
-                    self.loadingIndicator.stopAnimating()
-                    appDelegate.newLocation = studentLocation
-                    self.dismiss(animated: true, completion: nil)
                 })
             } else {
-                self.showAlert(title: "Oops!", message: "No user id found, please log in")
+                self.showAlert(title: "Oops!", message: "No user found, please log in")
                 self.performSegue(withIdentifier: "showLogin", sender: self)
                 self.loadingIndicator.stopAnimating()
+                sender.isEnabled = true
                 return
             }
             
         }
     }
 
+}
+
+extension StudentInformationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

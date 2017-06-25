@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 func loadStudentLocations(completion: @escaping (Error?)->()) {
     ParseClient.shared.getStudentLocations(completion: { studentLocations, error in
@@ -22,6 +23,29 @@ func loadStudentLocations(completion: @escaping (Error?)->()) {
             completion(nil)
         }
     })
+}
+
+
+func getAnnotation(studentLocation: StudentLocation) -> MKPointAnnotation {
+    // Notice that the float values are being used to create CLLocationDegree values.
+    // This is a version of the Double type.
+    let lat = CLLocationDegrees(studentLocation.latitude)
+    let long = CLLocationDegrees(studentLocation.longitude)
+    
+    // The lat and long are used to create a CLLocationCoordinates2D instance.
+    let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+    
+    let first = studentLocation.firstName!
+    let last = studentLocation.lastName!
+    let mediaURL = studentLocation.mediaURL!
+    
+    // Here we create the annotation and set its coordiate, title, and subtitle properties
+    let annotation = MKPointAnnotation()
+    annotation.coordinate = coordinate
+    annotation.title = "\(first) \(last)"
+    annotation.subtitle = mediaURL
+    
+    return annotation
 }
 
 func getSafeString(value: AnyObject?) -> String {
