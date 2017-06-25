@@ -166,12 +166,16 @@ extension StudentListTableViewController {
         let app = UIApplication.shared
         
         if let toOpen = studentLocation.mediaURL {
-            let url = URL(string: toOpen)!
-            if app.canOpenURL(url) {
-                app.open(url)
+            if let url = URL(string: toOpen) {
+                if app.canOpenURL(url) {
+                    app.open(url)
+                } else {
+                    showAlert(title: "Oh No!", message: "Could not open URL")
+                }
             } else {
                 showAlert(title: "Oh No!", message: "Could not open URL")
             }
+
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

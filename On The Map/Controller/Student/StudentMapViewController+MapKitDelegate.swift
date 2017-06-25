@@ -39,10 +39,13 @@ extension StudentMapViewController: MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             if let toOpen = view.annotation?.subtitle! {
-                let url = URL(string: toOpen)!
-                if app.canOpenURL(url) {
-                    app.open(url)
-                } else {
+                if let url = URL(string: toOpen) {
+                    if app.canOpenURL(url) {
+                        app.open(url)
+                    } else {
+                        showAlert(title: "Oh No!", message: "Could not open URL")
+                    }
+                }else {
                     showAlert(title: "Oh No!", message: "Could not open URL")
                 }
             }
