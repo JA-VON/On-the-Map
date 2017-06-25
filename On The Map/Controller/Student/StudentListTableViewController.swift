@@ -68,7 +68,7 @@ class StudentListTableViewController: UITableViewController {
             self.saveToParse(location: location)
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
-            self.appDelegate.studentLocations.removeFirst()
+            StudentLocation.studentLocations.removeFirst()
         })
         
         alertController.addAction(okAction)
@@ -77,7 +77,7 @@ class StudentListTableViewController: UITableViewController {
     }
     
     func confirmNewLocation(location: StudentLocation) {
-        appDelegate.studentLocations.insert(location, at: 0)
+        StudentLocation.studentLocations.insert(location, at: 0)
         refresh()
         confirm(studentLocation: location)
     }
@@ -86,14 +86,19 @@ class StudentListTableViewController: UITableViewController {
     
     @IBAction func refresh() {
         loadingIndicator.startAnimating()
-        loadStudentLocations(completion:{
+        loadStudentLocations(completion:{ error in
+            
+            if let error = error {
+                self.showAlert(title: "Oops!", message: error.localizedDescription)
+                return
+            }
             self.tableView.reloadData()
             self.loadingIndicator.stopAnimating()
         })
     }
     
     @IBAction func addButtonClicked(_ sender: Any) {
-        self.performSegue(withIdentifier: "showStudentInformation", sender: self)
+        performSegue(withIdentifier: "showStudentInformation", sender: self)
     }
     
     @IBAction func logoutButtonClicked(_ sender: Any) {
@@ -106,7 +111,7 @@ class StudentListTableViewController: UITableViewController {
             }
             performUIUpdatesOnMain {
                 self.loadingIndicator.stopAnimating()
-                self.performSegue(withIdentifier: "showLogin", sender: self)
+                self.tabBarController?.navigationController?.popViewController(animated: true)
             }
         })
         
@@ -123,14 +128,14 @@ extension StudentListTableViewController { // Datasource Functions
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.appDelegate.studentLocations.count
+        return StudentLocation.studentLocations.count
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCellIdentifiers.studentList, for: indexPath)
         
-        let studentLocation = appDelegate.studentLocations[indexPath.row]
+        let studentLocation = StudentLocation.studentLocations[indexPath.row]
         cell.textLabel?.text = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
         
         return cell
@@ -140,7 +145,7 @@ extension StudentListTableViewController { // Datasource Functions
 // MARK:- TableView Delegate
 extension StudentListTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let studentLocation = appDelegate.studentLocations[indexPath.row]
+        let studentLocation = StudentLocation.studentLocations[indexPath.row]
         let app = UIApplication.shared
         
         if let toOpen = studentLocation.mediaURL {

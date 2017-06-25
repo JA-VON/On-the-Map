@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    var studentLocations = [StudentLocation]()
     var userId: String? // ID of the Current User
     var userLocation: StudentLocation? // Location of the Current User
     

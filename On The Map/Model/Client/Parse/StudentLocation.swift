@@ -10,6 +10,8 @@ import Foundation
 
 struct StudentLocation {
     
+    static var studentLocations = [StudentLocation]() // Locations to be used throughout the project
+    
     // MARK: - Properties
     
     var objectId: String!
@@ -21,35 +23,21 @@ struct StudentLocation {
     var latitude: Float!
     var longitude: Float!
     
-    // For testing
-    static var dummy: StudentLocation {
-        var studentLocation = StudentLocation()
-        studentLocation.objectId = "nnJLprqCtQ"
-        studentLocation.uniqueKey = "1234"
-        studentLocation.firstName = "John"
-        studentLocation.lastName = "Doe"
-        studentLocation.mapString = "Mountain View, CA"
-        studentLocation.mediaURL = "https://udacity.com"
-        studentLocation.latitude = 37.386052
-        studentLocation.longitude = -122.083851
-        return studentLocation
+    init() {
+        // Default Initializer
     }
     
-    // MARK:- Serialization and deserialization
-    
-    static func from(jsonDict: Dictionary<String, AnyObject>) -> StudentLocation {
-        var studentLocation = StudentLocation()
-        
-        studentLocation.objectId = getSafeString(value: jsonDict["objectId"])
-        studentLocation.uniqueKey = getSafeString(value: jsonDict["uniqueKey"])
-        studentLocation.firstName = getSafeString(value: jsonDict["firstName"])
-        studentLocation.lastName = getSafeString(value: jsonDict["lastName"])
-        studentLocation.mapString = getSafeString(value: jsonDict["mapString"])
-        studentLocation.mediaURL = getSafeString(value: jsonDict["mediaURL"])
-        studentLocation.latitude = getSafeFloat(value: jsonDict["latitude"])
-        studentLocation.longitude = getSafeFloat(value: jsonDict["longitude"])
-        return studentLocation
+    init(jsonDict: Dictionary<String, AnyObject>) {
+        objectId = getSafeString(value: jsonDict["objectId"])
+        uniqueKey = getSafeString(value: jsonDict["uniqueKey"])
+        firstName = getSafeString(value: jsonDict["firstName"])
+        lastName = getSafeString(value: jsonDict["lastName"])
+        mapString = getSafeString(value: jsonDict["mapString"])
+        mediaURL = getSafeString(value: jsonDict["mediaURL"])
+        latitude = getSafeFloat(value: jsonDict["latitude"])
+        longitude = getSafeFloat(value: jsonDict["longitude"])
     }
+
     
     func toDictionary() -> Dictionary<String, AnyObject> {
         var jsonDict = [String: AnyObject]()

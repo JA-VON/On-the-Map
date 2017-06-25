@@ -32,7 +32,7 @@ extension LoginViewController: UdacityDelegate {
     func didCompleteLogin(sessionId: String?, userId: String?, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
-            showAlert(title: "Oops!", message: "There was an error logging you in, please try again later")
+            showAlert(title: "Oops!", message: error.localizedDescription)
             return
         }
         

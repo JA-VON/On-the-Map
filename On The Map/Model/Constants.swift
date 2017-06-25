@@ -52,6 +52,11 @@ struct Constants {
         struct URLParameters {
             static let uniqueKey = "uniqueKey"
         }
+        
+        struct QueryParameters {
+            static let limit = "limit=100"
+            static let order = "order=-updatedAt"
+        }
     }
     
     struct Facebook {

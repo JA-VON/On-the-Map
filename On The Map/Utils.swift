@@ -9,18 +9,17 @@
 import Foundation
 import UIKit
 
-func loadStudentLocations(completion: @escaping ()->()) {
+func loadStudentLocations(completion: @escaping (Error?)->()) {
     ParseClient.shared.getStudentLocations(completion: { studentLocations, error in
         
         guard error == nil else {
-            print(error!.localizedDescription)
+            completion(error)
             return
         }
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.studentLocations = studentLocations!
+        StudentLocation.studentLocations = studentLocations!
         performUIUpdatesOnMain {
-            completion()
+            completion(nil)
         }
     })
 }

@@ -13,7 +13,12 @@ class ParseClient: Client {
     
     static let shared = ParseClient()
     
-    let studentLocationURL = Constants.Parse.url + Constants.Parse.Paths.studentLocation
+    let studentLocationURL = Constants.Parse.url
+        + Constants.Parse.Paths.studentLocation
+        + "?"
+        + Constants.Parse.QueryParameters.limit
+        + "&"
+        + Constants.Parse.QueryParameters.order
     
     func getDefaultHeaders() -> [String: String] { // Default Headers containing the header information for the application ID and API Key
         return [
@@ -39,7 +44,7 @@ class ParseClient: Client {
                 var studentLocations = [StudentLocation]()
                 
                 for studentDict in jsonArray {
-                    let studentLocation = StudentLocation.from(jsonDict: studentDict)
+                    let studentLocation = StudentLocation(jsonDict: studentDict)
                     if studentLocation.uniqueKey! == appDelegate.userId! {
                         appDelegate.userLocation = studentLocation
                     }
@@ -74,7 +79,7 @@ class ParseClient: Client {
             print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
             do {
                 let jsonDict = try self.JSONDeserialize(jsonData: data!)
-                completion(StudentLocation.from(jsonDict: jsonDict), nil)
+                completion(StudentLocation(jsonDict: jsonDict), nil)
             } catch {
                 print(error.localizedDescription)
                 let userInfo = [NSLocalizedDescriptionKey : error.localizedDescription]

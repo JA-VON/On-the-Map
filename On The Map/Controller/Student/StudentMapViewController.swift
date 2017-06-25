@@ -45,7 +45,7 @@ class StudentMapViewController: UIViewController {
         loadingIndicator.stopAnimating()
         self.mapView.removeAnnotations(annotations)
         annotations = [MKPointAnnotation]()
-        for studentLocation in self.appDelegate.studentLocations {
+        for studentLocation in StudentLocation.studentLocations {
             annotations.append(getAnnotation(studentLocation: studentLocation))
         }
         
@@ -139,7 +139,7 @@ class StudentMapViewController: UIViewController {
             }
             performUIUpdatesOnMain {
                  self.loadingIndicator.stopAnimating()
-                 self.performSegue(withIdentifier: "showLogin", sender: self)
+                 self.tabBarController?.navigationController?.popViewController(animated: true)
             }
         })
         LoginManager().logOut()
@@ -147,7 +147,13 @@ class StudentMapViewController: UIViewController {
 
     @IBAction func refresh() {
         loadingIndicator.startAnimating()
-        loadStudentLocations(completion: updateMap)
+        loadStudentLocations(completion: { error in
+            if let error = error {
+                self.showAlert(title: "Oops!", message: error.localizedDescription)
+                return
+            }
+            self.updateMap()
+        })
         
     }
     

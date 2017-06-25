@@ -96,19 +96,30 @@ class Client {
 
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(String(describing: error))")
+                sendError(error!.localizedDescription)
                 return
             }
-
-            /* GUARD: Did we get a successful 2XX response? */
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError("Your request returned a status code other than 2xx!")
-                return
+            
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                
+                /* GUARD: Did we get a successful 2XX response? */
+                guard statusCode >= 200 && statusCode <= 299 else {
+                    var message = "Please try again later"
+                    
+                    if statusCode >= 400 && statusCode <= 499 {
+                        message = "Please check your credentials"
+                    } else if statusCode >= 500 && statusCode <= 599 {
+                        message = "There was an error with Udacity servers, Please try again later"
+                    }
+                    sendError(message)
+                    return
+                }
             }
+            
 
             /* GUARD: Was there any data returned? */
             guard let data = data else {
-                sendError("No data was returned by the request!")
+                sendError("Please try again later")
                 return
             }
             

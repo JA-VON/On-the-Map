@@ -99,7 +99,6 @@
                         <outlet property="loadingIndicator" destination="46g-bE-4CH" id="0Lz-Xu-sYF"/>
                         <outlet property="mapView" destination="425-Tv-PfW" id="fch-EX-a3h"/>
                         <segue destination="vyb-QS-EWi" kind="presentation" identifier="showStudentInformation" id="woS-Cb-2FQ"/>
-                        <segue destination="LpH-R2-6op" kind="show" identifier="showLogin" id="LY4-I6-QTo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7hA-VV-AJh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -219,11 +218,11 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iuI-qF-dQd" id="Pd7-aP-jvv">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uj5-Me-4Rk">
-                                            <rect key="frame" x="54" y="0.0" width="345" height="43"/>
+                                            <rect key="frame" x="54" y="0.0" width="345" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -262,7 +261,6 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <segue destination="LpH-R2-6op" kind="show" identifier="showLogin" id="PBg-dV-e3k"/>
                         <segue destination="vyb-QS-EWi" kind="presentation" identifier="showStudentInformation" id="a8c-2y-JSH"/>
                     </connections>
                 </tableViewController>
@@ -354,7 +352,6 @@
         <image name="World Icon" width="52" height="67"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LY4-I6-QTo"/>
         <segue reference="woS-Cb-2FQ"/>
     </inferredMetricsTieBreakers>
 </document>
